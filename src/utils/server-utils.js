@@ -63,6 +63,15 @@ export function generateCryptoToken (bufferLength = 48) {
 }
 
 /**
+ *
+ * @param {string} value
+ * @returns {string}
+ */
+export function passwordHash(value) {
+  return crypto.createHash('md5').update(value).digest('hex');
+}
+
+/**
  * @param {Socket} socket
  * @return {Object}
  */

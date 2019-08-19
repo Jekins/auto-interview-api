@@ -7,7 +7,7 @@ import { router as passportRouter } from "./passport";
 const router = express.Router();
 
 router.use( bodyParser.json() );
-router.use( bodyParser.urlencoded({ extended: false }) );
+router.use( bodyParser.urlencoded( { extended: false } ) );
 
 router.all( '*', cors );
 

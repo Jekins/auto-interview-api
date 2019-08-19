@@ -22,13 +22,48 @@ export function signOutRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function signOut (params) {
+  let {
+    email,
+    firstName,
+    lastName,
+    password,
+    groupKey
+  } = params;
 
-  /*return models.User.findAll({
-    include: [{
-      model: models.User
-    }],
-    order: [
-      [ 'balance', 'DESC' ]
-    ],
-  });*/
+  let groupIds = [];
+
+  let registerLink = await models.RegisterLink.findOne({
+    where: {
+      registerKey: groupKey
+    }
+  });
+
+  if (!registerLink || !registerLink.groupId) {
+    throw new HttpError( 'Ссылка недействительная' );
+  } else if (!registerLink.isActive) {
+    throw new HttpError( 'Регистрация по этой ссылке больше невозможна' );
+  }
+
+  groupIds.push(registerLink.groupId);
+
+  let user = await models.User.findOne({
+    where: {
+      email
+    }
+  });
+
+  if (user) {
+    throw new HttpError('Пользователь с таким логином уже существует')
+  }
+
+  user = await models.User.create({
+    email,
+    firstName,
+    lastName,
+    password
+  });
+  await user.setGroups(groupIds);
+  await registerLink.increment('linkActivatedTimes');
+
+  return user;
 }

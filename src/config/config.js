@@ -14,7 +14,7 @@ export const config = {
   "env": env,
   "secureProtocol": env === 'production',
   "ip": "",
-  "port": process.env.PORT || 8080,
+  "port": process.env.PORT || 8181,
   "db": {
     ...databaseCredentials,
     "max": 100,
