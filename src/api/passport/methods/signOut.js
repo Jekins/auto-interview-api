@@ -27,24 +27,11 @@ export async function signOut (params) {
     firstName,
     lastName,
     password,
-    groupKey
   } = params;
 
   let groupIds = [];
 
-  let registerLink = await models.RegisterLink.findOne({
-    where: {
-      registerKey: groupKey
-    }
-  });
-
-  if (!registerLink || !registerLink.groupId) {
-    throw new HttpError( 'Ссылка недействительная' );
-  } else if (!registerLink.isActive) {
-    throw new HttpError( 'Регистрация по этой ссылке больше невозможна' );
-  }
-
-  groupIds.push(registerLink.groupId);
+  groupIds.push(1);
 
   let user = await models.User.findOne({
     where: {
@@ -62,8 +49,7 @@ export async function signOut (params) {
     lastName,
     password
   });
-  await user.setGroups(groupIds);
-  await registerLink.increment('linkActivatedTimes');
+  // await user.setGroups(groupIds);
 
   return user;
 }

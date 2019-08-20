@@ -46,9 +46,9 @@ export const User = sequelize.define('User', {
     defaultValue: userGroups.groups.user.mask,
     get() {
       let mask = this.getDataValue('accessGroup');
-      if (this.getDataValue('isBan')) {
-        mask = userGroups.groups.locked.mask;
-      }
+      // if (this.getDataValue('isBan')) {
+      //   mask = userGroups.groups.locked.mask;
+      // }
       return userGroups.utils.groupByMask(mask);
     }
   },
@@ -101,16 +101,16 @@ export const User = sequelize.define('User', {
     method: 'BTREE',
     fields: [ 'email' ]
   }],
-  defaultScope: {
-    where: {
-      $and: {
-        isBan: false,
-        accessGroup: {
-          $ne: userGroups.groups.locked.mask
-        }
-      }
-    }
-  },
+  // defaultScope: {
+  //   where: {
+  //     $and: {
+  //       isBan: false,
+  //       accessGroup: {
+  //         $ne: userGroups.groups.locked.mask
+  //       }
+  //     }
+  //   }
+  // },
   scopes: {
     deleted: {
       where: {
@@ -119,11 +119,11 @@ export const User = sequelize.define('User', {
         }
       }
     },
-    banned: {
-      where: {
-        isBan: true
-      }
-    },
+    // banned: {
+    //   where: {
+    //     isBan: true
+    //   }
+    // },
     accessGroup(...args) {
       let groups = userGroups.utils.resolveAllGroups(...args);
       return {

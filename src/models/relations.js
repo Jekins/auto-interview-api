@@ -3,7 +3,6 @@ import { sequelize } from "./instance";
 import { User } from './User';
 import { AuthToken } from './AuthToken';
 import { Group } from './Group';
-import { RegisterLink } from './RegisterLink';
 
 const logger = debug( 'Sequelize' );
 
@@ -24,9 +23,6 @@ export function makeRelations () {
     timestamps: false,
     foreignKey: 'groupId'
   });
-
-  Group.hasMany(RegisterLink, { foreignKey: 'groupId', targetKey: 'id' });
-  RegisterLink.belongsTo(Group, { foreignKey: 'groupId', targetKey: 'id' });
 
   console.log( 'Sequelize: models are syncing...' );
   return sequelize.sync(/**{ force: true }/**/).then(() => {
