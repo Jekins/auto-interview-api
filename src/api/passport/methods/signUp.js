@@ -18,7 +18,7 @@ export function signUpRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function signUp (params) {
-  let {
+  const {
     email,
     firstName,
     lastName,

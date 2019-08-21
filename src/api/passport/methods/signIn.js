@@ -1,12 +1,8 @@
 import Promise from 'bluebird';
-import Sequelize from 'sequelize';
 
 import * as models from '../../../models';
-import { ensureNumber, ensureString, passwordHash, rememberUser, wrapRequest } from "../../../utils";
+import { authExpires, computePasswordHash, generateTokenForUser, wrapRequest } from "../../../utils";
 import { config } from "../../../config/config";
-
-const isProduction = process.env.NODE_ENV === 'production';
-const Op = Sequelize.Op;
 
 /**
  * @param {*} req
@@ -29,7 +25,7 @@ export async function signIn (params, req, res) {
   const user = await models.User.findOne( {
     where: {
       email,
-      password: passwordHash( password )
+      password: computePasswordHash( password )
     }
   } );
 
@@ -37,12 +33,13 @@ export async function signIn (params, req, res) {
     throw new HttpError( 'Wrong login or password', 401 );
   }
 
-  const tokenInstance = await rememberUser( user );
+  const tokenInstance = await generateTokenForUser( user );
 
   res.cookie( AUTH_COOKIE_NAME, tokenInstance.token, {
-    expires: new Date( Date.now() + 1e3 * 3600 * 24 * 365 ),
+    expires: authExpires,
     httpOnly: true
   } );
+
   req.session.userId = user.id;
 
   await user.update( {

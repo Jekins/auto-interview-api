@@ -22,14 +22,7 @@ export const sequelize = new Sequelize(
     define: {
       charset: 'utf8mb4',
       collate: 'utf8mb4_unicode_ci'
-    },/*
-
-    define: {
-      charset: 'utf8mb4',
-      dialectOptions: {
-        collate: 'utf8mb4_unicode_ci'
-      }
-    },*/
+    },
 
     logging (context) {
       // logger( '%s', context )

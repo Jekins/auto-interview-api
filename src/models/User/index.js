@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import userGroups from './userGroups';
-import { passwordHash } from '../../utils';
+import { computePasswordHash } from '../../utils';
 import { sequelize } from "../instance";
 
 export const User = sequelize.define( 'User', {
@@ -21,7 +21,7 @@ export const User = sequelize.define( 'User', {
     type: Sequelize.STRING,
     allowNull: false,
     set (value) {
-      this.setDataValue( 'password', passwordHash( value ) );
+      this.setDataValue( 'password', computePasswordHash( value ) );
     },
     get () {
       return '(hidden)';

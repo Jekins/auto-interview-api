@@ -1,4 +1,4 @@
-import { BASE_DOMAIN } from './constants';
+import { baseDomain } from './constants';
 
 /**
  * @param {string} pathTo
@@ -8,5 +8,5 @@ export function getURL (pathTo) {
   if (!pathTo.startsWith( '/' )) {
     pathTo = '/' + pathTo;
   }
-  return `https://${ BASE_DOMAIN }${ pathTo }`;
+  return `https://${ baseDomain }${ pathTo }`;
 }

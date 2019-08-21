@@ -62,32 +62,6 @@ export function generateCryptoToken (bufferLength = 48) {
   } );
 }
 
-
-export function rememberUser (user) {
-  return generateCryptoToken().then( token => {
-    return user.createAuthToken( { token } );
-  } );
-}
-
-/**
- *
- * @param {string} value
- * @returns {string}
- */
-export function passwordHash (value) {
-  return crypto.createHash( 'md5' ).update( value ).digest( 'hex' );
-}
-
-/**
- * @param {Socket} socket
- * @return {Object}
- */
-export function extractSocketQuery (socket) {
-  const { handshake = {} } = socket;
-  return handshake.query || {};
-}
-
-
 /**
  * @param {User} user
  * @return {AuthToken}

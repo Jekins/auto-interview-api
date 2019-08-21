@@ -8,15 +8,21 @@ global.HttpError = ApiError;
 import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import { clientError, serverError } from "./utils/error/middleware";
 import { router as apiRouter } from "./api";
 import { config } from "./config/config";
 
-let app = express();
+const app = express();
 
 app.use( morgan( 'tiny' ) );
 app.use( cookieParser( config.cookieSecret ) );
+app.use( session( {
+  secret: config.sessionSecret,
+  resave: false,
+  saveUninitialized: true
+} ) );
 app.enable( 'trust proxy' );
 
 app.get( '/', (req, res) => res.end() );
