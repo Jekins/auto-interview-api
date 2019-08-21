@@ -46,9 +46,11 @@ export const User = sequelize.define( 'User', {
     defaultValue: userGroups.groups.user.mask,
     get () {
       let mask = this.getDataValue( 'accessGroup' );
+
       if (this.getDataValue( 'isBan' )) {
         mask = userGroups.groups.locked.mask;
       }
+
       return userGroups.utils.groupByMask( mask );
     }
   },
@@ -67,9 +69,11 @@ export const User = sequelize.define( 'User', {
 }, {
   getterMethods: {
     fullName () {
-      let placeholder = '{firstName} {lastName}';
+      const placeholder = '{firstName} {lastName}';
+
       return [ 'firstName', 'lastName' ].reduce( (placeholder, key) => {
-        let regexp = new RegExp( `\{${ key }\}`, 'gi' );
+        const regexp = new RegExp( `\{${ key }\}`, 'gi' );
+
         return placeholder.replace( regexp, this[ key ] );
       }, placeholder ).trim();
     },
@@ -85,11 +89,16 @@ export const User = sequelize.define( 'User', {
   },
   setterMethods: {
     fullName (value) {
-      let names = (value || '').trim().split( /\s+/ );
+      const names = (value || '').trim().split( /\s+/ );
+
       while (names.length !== 2) {
-        (names.length > 2 ?
-          names.pop : names.push.bind( this, '-' ))();
+        (
+          names.length > 2
+            ? names.pop
+            : names.push.bind( this, '-' )
+        )();
       }
+
       this.setDataValue( 'firstName', names.slice( 0, -1 ).join( ' ' ) );
       this.setDataValue( 'lastName', names.slice( -1 ).join( ' ' ) );
     }
@@ -111,6 +120,7 @@ export const User = sequelize.define( 'User', {
     },
     accessGroup (...args) {
       let groups = userGroups.utils.resolveAllGroups( ...args );
+
       return {
         where: {
           accessGroup: {
