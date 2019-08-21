@@ -1,6 +1,6 @@
 export const database = {
   "host": "localhost",
-  "database": "autointbd",
+  "database": "autointdb",
   "username": "non-root",
   "password": "123"
 };

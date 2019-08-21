@@ -18,9 +18,9 @@ export function clientError (error, req, res, next) {
 
   isDevelopment && console.error( 'Bad request:', error );
 
-  res.status( error.httpCode ).json({
+  res.status( error.httpCode ).json( {
     error: error.plainError
-  });
+  } );
 }
 
 /**
@@ -30,7 +30,7 @@ export function clientError (error, req, res, next) {
  * @param {Function} next
  * @return {*}
  */
-export function serverError(error, req, res, next) {
+export function serverError (error, req, res, next) {
   (isDevelopment || isProduction) && console.error( 'Internal Server Error:', error );
 
   if (res.headersSent) {
@@ -41,11 +41,11 @@ export function serverError(error, req, res, next) {
   const {
     message = defaultErrorCode,
     params = {}
-  } = ( isDevelopmentMode ? error : {} ) || {};
+  } = (isDevelopmentMode ? error : {}) || {};
 
   const apiError = new ApiError( message, 500, params );
 
-  res.status( apiError.httpCode ).json({
+  res.status( apiError.httpCode ).json( {
     error: apiError.plainError
-  });
+  } );
 }

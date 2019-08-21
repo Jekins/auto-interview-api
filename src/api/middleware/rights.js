@@ -14,7 +14,7 @@ export function rightsMiddleware (...groupsArray) {
     }
   }
   let defaultGroups = [ 'admin' ];
-  let requestedMask = groupUtils.grouping(...defaultGroups, ...groupsArray);
+  let requestedMask = groupUtils.grouping( ...defaultGroups, ...groupsArray );
 
   return (req, res, next) => {
     req.requestedMask = requestedMask;

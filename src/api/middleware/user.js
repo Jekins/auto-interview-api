@@ -8,9 +8,9 @@ import { getUserByToken } from "../../utils/models-utils";
  * @return {Promise<*>}
  */
 export async function userMiddleware (req, res, next) {
-  return Promise.resolve().then(() => {
+  return Promise.resolve().then( () => {
     return retrieveUser( req, res, next );
-  }).catch( next );
+  } ).catch( next );
 }
 
 /**
@@ -19,14 +19,14 @@ export async function userMiddleware (req, res, next) {
  * @param {Function} next
  * @return {Promise<*>}
  */
-async function retrieveUser(req, res, next) {
-  req._ip = req.headers['x-forwarded-for']
+async function retrieveUser (req, res, next) {
+  req._ip = req.headers[ 'x-forwarded-for' ]
     || req.connection.remoteAddress
-    || req.headers['x-real-ip']
+    || req.headers[ 'x-real-ip' ]
     || 'Not specified';
 
   let {
-    token = req.header('X-Token') || req.query.token || req.body.token
+    token = req.header( 'X-Token' ) || req.query.token || req.body.token
   } = req.params;
 
   req.token = token;

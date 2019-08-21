@@ -1,14 +1,14 @@
 import Sequelize from 'sequelize';
 import { sequelize } from "../instance";
 
-export const AuthToken = sequelize.define('AuthToken', {
+export const AuthToken = sequelize.define( 'AuthToken', {
   id: {
     type: Sequelize.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true
   },
   token: {
-    type: Sequelize.CHAR(96),
+    type: Sequelize.CHAR( 96 ),
     allowNull: false
   },
   isActive: {
@@ -18,11 +18,11 @@ export const AuthToken = sequelize.define('AuthToken', {
 }, {
   paranoid: true,
   engine: 'INNODB',
-  indexes: [{
+  indexes: [ {
     name: 'token_index',
     method: 'BTREE',
     fields: [ 'token' ]
-  }],
+  } ],
   defaultScope () {
     return {
       where: {
@@ -37,4 +37,4 @@ export const AuthToken = sequelize.define('AuthToken', {
       }
     }
   }
-});
+} );

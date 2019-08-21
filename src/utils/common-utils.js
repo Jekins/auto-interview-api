@@ -3,7 +3,7 @@
  * @returns {string}
  */
 export function ensureString (value) {
-  return ( value || '' ).toString();
+  return (value || '').toString();
 }
 
 /**

@@ -19,13 +19,13 @@ const groups = {
 
 let utils = {
   resolveGroup: group => group.mask
-    ? group : (Number.isInteger(group) ? utils.groupByMask(group) : groups[ group ]),
+    ? group : (Number.isInteger( group ) ? utils.groupByMask( group ) : groups[ group ]),
 
-  resolveAllGroups: (...groups) => groups.map(utils.resolveGroup),
+  resolveAllGroups: (...groups) => groups.map( utils.resolveGroup ),
 
   hasRight: (group, mask) => (mask & utils.resolveGroup( group ).mask) === utils.resolveGroup( group ).mask,
 
-  grouping: (...groups) => groups.reduce((mask, group) => mask | utils.resolveGroup( group ).mask, 0),
+  grouping: (...groups) => groups.reduce( (mask, group) => mask | utils.resolveGroup( group ).mask, 0 ),
 
   addGroup: (mask, group) => mask | utils.resolveGroup( group ).mask,
 
@@ -35,37 +35,37 @@ let utils = {
     if (mask === groups.all.mask) {
       return groups.all;
     }
-    let filteredGroups = utils.groupsByMask(mask);
+    let filteredGroups = utils.groupsByMask( mask );
     if (!filteredGroups.length) {
-      throw new HttpError('Group not found');
+      throw new HttpError( 'Group not found' );
     }
-    return filteredGroups[0];
+    return filteredGroups[ 0 ];
   },
 
-  groupsByMask: mask => Object.keys(groups)
-    .filter(groupKey => groupKey !== 'all' && utils.hasRight(groupKey, mask))
-    .map(groupKey => groups[ groupKey ]),
+  groupsByMask: mask => Object.keys( groups )
+    .filter( groupKey => groupKey !== 'all' && utils.hasRight( groupKey, mask ) )
+    .map( groupKey => groups[ groupKey ] ),
 
   groupsByMaskSorted: (mask, order = 'desc') => {
     let sign = order === 'desc' ? -1 : 1;
-    return utils.groupsByMask(mask)
-      .sort((a, b) => sign * (a.mask - b.mask));
+    return utils.groupsByMask( mask )
+      .sort( (a, b) => sign * (a.mask - b.mask) );
   },
 
   maxGroupByMask: mask => {
-    let filteredGroups = utils.groupsByMaskSorted(mask);
+    let filteredGroups = utils.groupsByMaskSorted( mask );
     if (!filteredGroups.length) {
-      throw new HttpError('Group not found');
+      throw new HttpError( 'Group not found' );
     }
-    return filteredGroups[0];
+    return filteredGroups[ 0 ];
   },
 
   minGroupByMask: mask => {
-    let filteredGroups = utils.groupsByMaskSorted(mask, 'asc');
+    let filteredGroups = utils.groupsByMaskSorted( mask, 'asc' );
     if (!filteredGroups.length) {
-      throw new HttpError('Group not found');
+      throw new HttpError( 'Group not found' );
     }
-    return filteredGroups[0];
+    return filteredGroups[ 0 ];
   }
 };
 

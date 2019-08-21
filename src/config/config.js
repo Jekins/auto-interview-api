@@ -27,5 +27,10 @@ export const config = {
     "methods": [ "POST", "GET", "OPTIONS" ],
     "headers": [ "Content-Type", "X-Token", "X-Requested-With" ]
   },
+  "auth": {
+    "cookieName": 'token'
+  },
+  "cookieSecret": "your secret",
+  "sessionSecret": "your secret",
   "salt": "javascript-is-the-best"
 };

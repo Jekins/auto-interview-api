@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get( '/', (req, res) => {
   var options = {
     root: __dirname,
     dotfiles: 'deny',
@@ -12,16 +12,15 @@ router.get('/', (req, res) => {
     }
   };
   let fileName = 'index.html';
-  res.sendFile(fileName, options, function (err) {
+  res.sendFile( fileName, options, function (err) {
     if (err) {
-      console.log(err);
-      res.status(err.status).end();
+      console.log( err );
+      res.status( err.status ).end();
+    } else {
+      console.log( 'Sent:', fileName );
     }
-    else {
-      console.log('Sent:', fileName);
-    }
-  });
-});
+  } );
+} );
 
 export {
   router

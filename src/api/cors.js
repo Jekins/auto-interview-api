@@ -2,7 +2,7 @@ import cors from 'cors';
 import { config } from "../config/config";
 
 let corsOptions = {
-  origin: config.cors.origins.join(' '),
+  origin: config.cors.origins.join( ' ' ),
   methods: config.cors.methods,
   allowedHeaders: config.cors.headers
 };

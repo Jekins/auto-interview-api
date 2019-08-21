@@ -10,7 +10,7 @@ import { ensureString } from "./common-utils";
  * @param {number|*} value
  * @return {number|string|boolean}
  */
-export function normalizePort(value) {
+export function normalizePort (value) {
   const port = parseInt( value, 10 );
   if (isNaN( port )) {
     // named pipe
@@ -42,13 +42,13 @@ export function extractAllParams (request) {
  * @return {Promise<T>|*}
  */
 export function wrapRequest (asyncMethodFn, req, res, next) {
-  return Promise.try(_ => {
-    return asyncMethodFn( extractAllParams( req ) );
-  }).then(response => {
-    return res.json({
+  return Promise.try( _ => {
+    return asyncMethodFn( extractAllParams( req ), req, res );
+  } ).then( response => {
+    return res.json( {
       response
-    });
-  }).catch( next );
+    } );
+  } ).catch( next );
 }
 
 /**
@@ -57,9 +57,16 @@ export function wrapRequest (asyncMethodFn, req, res, next) {
  */
 export function generateCryptoToken (bufferLength = 48) {
   let getRandomBytes = Promise.promisify( crypto.randomBytes );
-  return getRandomBytes( bufferLength ).then(buffer => {
+  return getRandomBytes( bufferLength ).then( buffer => {
     return buffer.toString( 'hex' );
-  });
+  } );
+}
+
+
+export function rememberUser (user) {
+  return generateCryptoToken().then( token => {
+    return user.createAuthToken( { token } );
+  } );
 }
 
 /**
@@ -67,8 +74,8 @@ export function generateCryptoToken (bufferLength = 48) {
  * @param {string} value
  * @returns {string}
  */
-export function passwordHash(value) {
-  return crypto.createHash('md5').update(value).digest('hex');
+export function passwordHash (value) {
+  return crypto.createHash( 'md5' ).update( value ).digest( 'hex' );
 }
 
 /**
@@ -86,9 +93,9 @@ export function extractSocketQuery (socket) {
  * @return {AuthToken}
  */
 export function generateTokenForUser (user) {
-  return generateCryptoToken().then(token => {
-    return user.createAuthToken({ token });
-  });
+  return generateCryptoToken().then( token => {
+    return user.createAuthToken( { token } );
+  } );
 }
 
 /**
@@ -117,7 +124,7 @@ export function sha1 (value) {
  */
 export function computePasswordHash (value) {
   return md5(
-    ( config.salt || '' ) + ensureString( value )
+    (config.salt || '') + ensureString( value )
   );
 }
 

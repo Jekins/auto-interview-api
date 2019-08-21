@@ -8,5 +8,5 @@ export function getURL (pathTo) {
   if (!pathTo.startsWith( '/' )) {
     pathTo = '/' + pathTo;
   }
-  return `https://${BASE_DOMAIN}${pathTo}`;
+  return `https://${ BASE_DOMAIN }${ pathTo }`;
 }
