@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 import * as models from '../../../models';
-import { wrapRequest } from "../../../utils";
+import { ensureNumber, wrapRequest } from "../../../utils";
 
 /**
  * @param {*} req
@@ -18,7 +18,7 @@ export function createRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function create (params) {
-  const {
+  let {
     titleStart,
     descriptionStart,
     titleFinish,
@@ -29,7 +29,12 @@ export async function create (params) {
     canAddComment
   } = params;
 
-  const interview = await models.Interview.create( {
+  duration = ensureNumber( duration );
+  canSwitchQuestion = Boolean( canSwitchQuestion );
+  canEditAnswer = Boolean( canEditAnswer );
+  canAddComment = Boolean( canAddComment );
+
+  return await models.Interview.create( {
     titleStart,
     descriptionStart,
     titleFinish,
@@ -39,6 +44,4 @@ export async function create (params) {
     canEditAnswer,
     canAddComment
   } );
-
-  return interview;
 }

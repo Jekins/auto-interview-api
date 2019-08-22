@@ -12,7 +12,7 @@ router.use( bodyParser.urlencoded( { extended: false } ) );
 router.all( '*', cors );
 
 router.use( '/passport', passportRouter );
-router.use( '/interview', interviewRouter );
+router.use( '/interviews', interviewRouter );
 
 export {
   router

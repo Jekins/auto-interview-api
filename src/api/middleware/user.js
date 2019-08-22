@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
-import { getUserByToken } from "../../utils/models-utils";
+import { config } from "../../config/config";
+import * as models from "../../models";
 
 /**
  * @param {*} req
@@ -20,30 +21,65 @@ export async function userMiddleware (req, res, next) {
  * @return {Promise<*>}
  */
 async function retrieveUser (req, res, next) {
+  const AUTH_COOKIE_NAME = config.auth.cookieName;
+  const session = req.session || {};
+  const cookies = req.cookies;
+  let user;
+  let { token = req.query && req.query.token || req.body && req.body.token } = req.params;
+
   req._ip = req.headers[ 'x-forwarded-for' ]
     || req.connection.remoteAddress
     || req.headers[ 'x-real-ip' ]
     || 'Not specified';
 
-  let {
-    token = req.header( 'X-Token' ) || req.query.token || req.body.token
-  } = req.params;
-
+  token = req.header( 'X-Token' ) || token || cookies[ AUTH_COOKIE_NAME ];
   req.token = token;
-  let user;
 
-  if (typeof token === 'string') {
-    user = await getUserByToken( token );
+  if (session && session.userId) {
+    user = await models.User.findByPk( session.userId );
+  } else if (typeof token === 'string') {
+    user = await getUser( token );
+  } else {
+    return next();
   }
 
   if (!user) {
     return next();
   }
 
+  session.userId = user.id;
   req.user = user;
 
-  user.updateRecentActivityTime();
-  await user.save();
+  await user.update( {
+    recentActivityTimeMs: Date.now()
+  } );
 
   next();
+}
+
+/**
+ *
+ * @param {string} token
+ * @returns {Promise<null|*>}
+ */
+export async function getUser (token) {
+  const tokenInstance = await models.AuthToken.findOne( {
+    where: { token }
+  } );
+
+  if (!tokenInstance) {
+    return null;
+  }
+
+  const user = await tokenInstance.getUser( {
+    attributes: {
+      exclude: [ 'deletedAt' ]
+    }
+  } );
+
+  if (!user) {
+    return null;
+  }
+
+  return user;
 }
