@@ -43,6 +43,8 @@ const errorTypes = new Map( [
   [ 'register.required_name', 'Заполните имя. Мы же должны потом как-то к вам обращаться.' ],
   [ 'register.invalid_name', 'Имя не может быть меньше 2 и больше 32 символов, а также должно содержать все кириллические или латинские символы. Кровь дракона на ваше усмотрение.' ],
   [ 'register.user_already_exist', 'Такой e-mail уже используется' ],
+
+  [ 'interview.not_found', 'Интервью не найдено' ],
 ] );
 
 export { errorTypes };

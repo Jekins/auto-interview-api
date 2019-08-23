@@ -6,7 +6,6 @@ import { rightsMiddleware, userMiddleware } from "../middleware";
 const router = express.Router();
 
 router.post( '/', [ userMiddleware, rightsMiddleware( [ 'user' ] ) ], methods.createRequest );
-router.post( '/:interviewId/tasks', [ userMiddleware, rightsMiddleware( [ 'user' ] ) ], methods.linkRequest );
 
 export {
   router

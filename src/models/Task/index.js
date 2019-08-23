@@ -7,22 +7,13 @@ export const Task = sequelize.define( 'Task', {
     autoIncrement: true,
     primaryKey: true
   },
-  externalId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  toDo: {
+  title: {
     type: Sequelize.TEXT,
   },
-  condition: {
+  description: {
     type: Sequelize.TEXT,
   },
 }, {
   paranoid: true,
   engine: 'INNODB',
-  indexes: [ {
-    name: 'externalId_index',
-    method: 'BTREE',
-    fields: [ 'externalId' ]
-  } ]
 } );

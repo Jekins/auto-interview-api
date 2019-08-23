@@ -20,11 +20,11 @@ export function signInRequest (req, res, next) {
  */
 export async function signIn (params, req, res) {
   const AUTH_COOKIE_NAME = config.auth.cookieName;
-  const { email, password } = params;
+  const { login, password } = params;
 
   const user = await models.User.findOne( {
     where: {
-      email,
+      login,
       password: computePasswordHash( password )
     }
   } );

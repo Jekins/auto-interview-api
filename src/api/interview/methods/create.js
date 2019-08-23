@@ -26,8 +26,10 @@ export async function create (params) {
     duration,
     canSwitchQuestion,
     canEditAnswer,
-    canAddComment
+    canAddComment,
+    user
   } = params;
+  const authorId = user.id;
 
   duration = ensureNumber( duration );
   canSwitchQuestion = Boolean( canSwitchQuestion );
@@ -42,6 +44,7 @@ export async function create (params) {
     duration,
     canSwitchQuestion,
     canEditAnswer,
-    canAddComment
+    canAddComment,
+    authorId
   } );
 }

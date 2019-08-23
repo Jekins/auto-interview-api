@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 import * as models from '../../../models';
-import { wrapRequest } from "../../../utils";
+import { ensureString, wrapRequest } from "../../../utils";
 
 /**
  * @param {*} req
@@ -18,8 +18,8 @@ export function signUpRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function signUp (params) {
-  const {
-    email,
+  let {
+    login,
     firstName,
     lastName,
     password,
@@ -27,7 +27,7 @@ export async function signUp (params) {
 
   let user = await models.User.findOne( {
     where: {
-      email
+      login
     }
   } );
 
@@ -35,8 +35,11 @@ export async function signUp (params) {
     throw new HttpError( 'Пользователь с таким логином уже существует' )
   }
 
+  firstName = ensureString( firstName );
+  lastName = ensureString( lastName );
+
   user = await models.User.create( {
-    email,
+    login,
     firstName,
     lastName,
     password
