@@ -25,12 +25,20 @@ export async function link (params) {
     userEmails = []
   } = params;
 
+  companyId = ensureNumber( companyId );
+
   if (typeof userEmails === 'string') {
     userEmails = userEmails.split( ',' );
   }
 
-  if (!Array.isArray( userEmails )) {
+  if (!Array.isArray( userEmails ) || !companyId) {
     throw new ApiError( 'invalid_value', 400 );
+  }
+
+  const company = await Company.findByPk( companyId );
+
+  if (!company) {
+    throw new ApiError( 'company.not_found', 404 );
   }
 
   let users = await models.User.findAll({
@@ -41,18 +49,9 @@ export async function link (params) {
     }
   });
 
-  //   users = await Promise.all( users );
+  const userIds = users.map( user => user.id );
 
-  let userIds = users.map( user => user.id );
-  const company = await Company.findByPk( ensureNumber( companyId ) );
-
-  if (!company) {
-    throw new ApiError( 'company.not_found', 404 );
-  }
-
-  await company.addUsers( userIds );
-
-  // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
+  await company.addUsers( userIds ); // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
 
   return company.getUsers();
 }
