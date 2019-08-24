@@ -22,7 +22,7 @@ export function linkRequest (req, res, next) {
 export async function link (params) {
   let {
     companyId,
-    userEmails = []
+    userEmails = [],
   } = params;
 
   companyId = ensureNumber( companyId );

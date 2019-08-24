@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import { config } from "../../config/config";
 import * as models from "../../models";
+import { extractAllParams } from "../../utils";
 
 /**
  * @param {*} req

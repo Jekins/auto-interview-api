@@ -23,7 +23,7 @@ export function makeRelations () {
   Interview.belongsToMany( Task, { through: 'TasksToInterviews', foreignKey: 'interviewId', timestamps: false } );
 
   console.log( 'Sequelize: models are syncing...' );
-  return sequelize.sync(/**/{ force: true }/**/ ).then( () => {
+  return sequelize.sync(/**{ force: true }/**/ ).then( () => {
     console.log( 'Sequelize: models synced!' );
   } ).catch( console.error.bind( console, 'Fatal error:' ) );
 }

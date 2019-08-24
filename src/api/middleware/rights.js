@@ -51,6 +51,7 @@ export function rightsCompanyMiddleware () {
       companyId,
       user
     } = extractAllParams( req );
+    console.log( '___ companyId:', req.parmas );
 
     companyId = ensureNumber( companyId );
 

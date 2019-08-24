@@ -22,7 +22,7 @@ export async function create (params) {
   let {
     name,
     key,
-    user
+    user,
   } = params;
 
   if (!key) {

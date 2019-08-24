@@ -1,12 +1,21 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsGroupsMiddleware, userMiddleware } from "../middleware";
+import { rightsCompanyMiddleware, rightsGroupsMiddleware, userMiddleware } from "../middleware";
 
 const router = express.Router();
 
-router.post( '/', [ userMiddleware, rightsGroupsMiddleware( [ 'user' ] ) ], methods.createRequest );
-router.post( '/:interviewId/tasks', [ userMiddleware, rightsGroupsMiddleware( [ 'user' ] ) ], methods.linkRequest );
+router.post( '/', [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+  rightsCompanyMiddleware()
+], methods.createRequest );
+
+router.post( '/:interviewId/tasks', [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+  rightsCompanyMiddleware()
+], methods.linkRequest );
 
 export {
   router

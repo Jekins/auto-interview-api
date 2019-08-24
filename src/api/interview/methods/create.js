@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 import * as models from '../../../models';
-import { ensureNumber, wrapRequest } from "../../../utils";
+import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
 
 const { Company } = models;
 
@@ -29,8 +29,12 @@ export async function create (params) {
     canSwitchQuestion,
     canEditAnswer,
     canAddComment,
-    user,
+    companyId,
   } = params;
+
+  if (!companyId) {
+    throw new ApiError( 'company.not_found', 404 );
+  }
 
   duration = ensureNumber( duration );
   canSwitchQuestion = Boolean( canSwitchQuestion );
@@ -46,6 +50,6 @@ export async function create (params) {
     canSwitchQuestion,
     canEditAnswer,
     canAddComment,
-    companyId: null //TODO: надо доделать
+    companyId
   } );
 }
