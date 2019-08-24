@@ -2,7 +2,8 @@ import deap from 'deap';
 
 import userGroups from "../../models/User/userGroups";
 import { ApiError } from "../../utils/error";
-import { ensureNumber, wrapRequest } from "../../utils";
+import { ensureNumber, extractAllParams, wrapRequest } from "../../utils";
+import Promise from "bluebird";
 
 /**
  * Check if user in right group
@@ -45,11 +46,11 @@ export function rightsGroupsMiddleware (...groupsArray) {
 }
 
 export function rightsCompanyMiddleware () {
-  async function checkRights (params, req, res, next) {
+  async function checkRights (req, res, next) {
     let {
       companyId,
       user
-    } = params;
+    } = extractAllParams( req );
 
     companyId = ensureNumber( companyId );
 
@@ -57,15 +58,14 @@ export function rightsCompanyMiddleware () {
       return next( new ApiError( 'company.not_found', 404 ) );
     }
 
-    const userCompanies = await user.getCompanies();
-    const isUserInCompany = userCompanies.some( ({ id }) => id === companyId );
+    const hasCompany = await user.hasCompany( companyId );
 
-    if (!isUserInCompany) {
+    if (!hasCompany) {
       return next( new ApiError( 'access_denied', 403 ) );
     }
 
     next();
   }
 
-  return (req, res, next) => wrapRequest( checkRights, req, res, next );
+  return (req, res, next) => checkRights( req, res, next );
 }

@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import * as models from '../../../models';
 import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
 
@@ -31,24 +33,24 @@ export async function link (params) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
-  let users = userEmails.map( email => {
-    return models.User.findOne( {
-      where: {
-        email
+  let users = await models.User.findAll({
+    where: {
+      email: {
+        [Op.in]: userEmails
       }
-    } );
-  } );
+    }
+  });
 
-  users = await Promise.all( users );
+  //   users = await Promise.all( users );
 
-  let userIds = users.filter( user => Boolean( user ) );
+  let userIds = users.map( user => user.id );
   const company = await Company.findByPk( ensureNumber( companyId ) );
 
   if (!company) {
     throw new ApiError( 'company.not_found', 404 );
   }
 
-  await company.setUsers( userIds );
+  await company.addUsers( userIds );
 
   // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
 
