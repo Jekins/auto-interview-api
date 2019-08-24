@@ -1,7 +1,7 @@
-import Promise from 'bluebird';
-
 import * as models from '../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
+import { ApiError, ensureNumber, getOnlyNumberIds, wrapRequest } from "../../../utils";
+
+const { Interview } = models;
 
 /**
  * @param {*} req
@@ -18,13 +18,16 @@ export function linkRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function link (params) {
-  let { interviewId, taskIds = [] } = params;
+  let {
+    interviewId,
+    taskIds = []
+  } = params;
 
   if (typeof taskIds === 'string') {
     taskIds = taskIds.split( ',' );
   }
 
-  taskIds = taskIds.map( Number ).filter( v => !Number.isNaN( v ) );
+  taskIds = getOnlyNumberIds( taskIds );
 
   if (!Array.isArray( taskIds )) {
     throw new ApiError( 'invalid_value', 400 );
@@ -32,7 +35,7 @@ export async function link (params) {
 
   interviewId = ensureNumber( interviewId );
 
-  const interview = await models.Interview.findByPk( interviewId );
+  const interview = await Interview.findByPk( interviewId );
 
   if (!interview) {
     throw new ApiError( 'interview.not_found', 404 );

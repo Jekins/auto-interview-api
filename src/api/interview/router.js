@@ -1,12 +1,12 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsMiddleware, userMiddleware } from "../middleware";
+import { rightsGroupsMiddleware, userMiddleware } from "../middleware";
 
 const router = express.Router();
 
-router.post( '/', [ userMiddleware, rightsMiddleware( [ 'user' ] ) ], methods.createRequest );
-router.post( '/:interviewId/tasks', [ userMiddleware, rightsMiddleware( [ 'user' ] ) ], methods.linkRequest );
+router.post( '/', [ userMiddleware, rightsGroupsMiddleware( [ 'user' ] ) ], methods.createRequest );
+router.post( '/:interviewId/tasks', [ userMiddleware, rightsGroupsMiddleware( [ 'user' ] ) ], methods.linkRequest );
 
 export {
   router

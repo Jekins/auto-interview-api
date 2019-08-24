@@ -10,9 +10,6 @@ const errorTypes = new Map( [
   [ 'invalid_value', 'Недопустимое значение' ],
   [ 'required_field', 'Пропущено обязательное поле' ],
 
-  // partner
-  [ 'partner.amount_too_small', 'Сумма не может быть меньше 2000 рублей' ],
-
   // payment
   [ 'payment.auth_needed', 'Обновите страницу и попробуйте еще раз' ],
   [ 'payment.invalid_income', 'Неверные параметры платежной системы' ],
@@ -21,15 +18,6 @@ const errorTypes = new Map( [
   [ 'feedback.required_email', 'Нам нужен Ваш e-mail, чтобы ответить на это сообщение' ],
   [ 'feedback.invalid_email', 'То, что вы написали, не очень похоже на e-mail' ],
   [ 'feedback.required_message', 'Мы не читаем пустые сообщения' ],
-
-  // course
-  [ 'course.slug_already_exists', 'Такое короткое имя уже занято' ],
-  [ 'course.does_not_exist', 'Такого курса не существует' ],
-
-  // course enrollment
-  [ 'course-enrollment.does_not_exist', 'Такого курса не существует' ],
-  [ 'course-enrollment.payment_unavailable', 'На текущий набор уже нельзя записаться' ],
-  [ 'course-enrollment.user_already_enrolled', 'Вы уже записаны на этот курс' ],
 
   // auth
   [ 'auth.too_many_requests', 'Слишком много попыток авторизации' ],
@@ -44,7 +32,14 @@ const errorTypes = new Map( [
   [ 'register.invalid_name', 'Имя не может быть меньше 2 и больше 32 символов, а также должно содержать все кириллические или латинские символы. Кровь дракона на ваше усмотрение.' ],
   [ 'register.user_already_exist', 'Такой e-mail уже используется' ],
 
+  // interview
   [ 'interview.not_found', 'Интервью не найдено' ],
+
+  // company
+  [ 'company.not_found', 'Компания не найдена' ],
+  [ 'company.key.required_field', 'Укажите id компании' ],
+  [ 'company.name.required_field', 'Укажите название компании' ],
+  [ 'company.user_already_exist', 'Компания уже существует' ],
 ] );
 
 export { errorTypes };

@@ -1,11 +1,10 @@
 import debug from 'debug';
+
+import * as models from '../models';
 import { sequelize } from "./instance";
-import { User } from './User';
-import { AuthToken } from './AuthToken';
-import { Interview } from "./Interview";
-import { Task } from "./Task";
 
 const logger = debug( 'Sequelize' );
+const { User, Company, Interview, Task, AuthToken } = models;
 
 export function makeRelations () {
   /**
@@ -14,8 +13,11 @@ export function makeRelations () {
   User.hasMany( AuthToken, { foreignKey: 'userId', targetKey: 'id' } );
   AuthToken.belongsTo( User, { foreignKey: 'userId', targetKey: 'id' } );
 
-  User.hasMany( Interview, { foreignKey: 'authorId', targetKey: 'id', as: 'Author' } );
-  Interview.belongsTo( User, { foreignKey: 'authorId', targetKey: 'id', as: 'Author' } );
+  User.belongsToMany( Company, { through: 'UsersToCompanies', foreignKey: 'userId', timestamps: false } );
+  Company.belongsToMany( User, { through: 'UsersToCompanies', foreignKey: 'companyId', timestamps: false } );
+
+  Company.hasMany( Interview, { foreignKey: 'companyId', targetKey: 'id', as: 'Company' } );
+  Interview.belongsTo( Company, { foreignKey: 'companyId', targetKey: 'id', as: 'Company' } );
 
   Task.belongsToMany( Interview, { through: 'TasksToInterviews', foreignKey: 'taskId', timestamps: false } );
   Interview.belongsToMany( Task, { through: 'TasksToInterviews', foreignKey: 'interviewId', timestamps: false } );

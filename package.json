@@ -37,6 +37,7 @@
     "express-session": "^1.16.2",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
+    "promise": "^8.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "sequelize": "^5.15.1",

@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 import * as models from '../../../models';
-import { authExpires, computePasswordHash, generateTokenForUser, wrapRequest } from "../../../utils";
+import { ApiError, authExpires, computePasswordHash, generateTokenForUser, wrapRequest } from "../../../utils";
 import { config } from "../../../config/config";
 
 /**
@@ -15,13 +15,18 @@ export function signInRequest (req, res, next) {
 }
 
 /**
- * @param {*} params
- * @return {Promise<any>|*}
+ *
+ * @param {object} params
+ * @param {object} req
+ * @param {object} res
+ * @returns {Promise<AuthToken.token|{allowNull, type}|*|ServerResponse|String|string>}
  */
 export async function signIn (params, req, res) {
+  let {
+    login,
+    password
+  } = params;
   const AUTH_COOKIE_NAME = config.auth.cookieName;
-  const { login, password } = params;
-
   const user = await models.User.findOne( {
     where: {
       login,
@@ -30,7 +35,7 @@ export async function signIn (params, req, res) {
   } );
 
   if (!user) {
-    throw new HttpError( 'Wrong login or password', 401 );
+    throw new ApiError( 'auth.wrong_credentials', 401 );
   }
 
   const tokenInstance = await generateTokenForUser( user );

@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 import * as models from '../../../models';
-import { ensureString, wrapRequest } from "../../../utils";
+import { ApiError, ensureString, wrapRequest } from "../../../utils";
 
 /**
  * @param {*} req
@@ -24,6 +24,7 @@ export async function signUp (params) {
     lastName,
     password,
   } = params;
+  const email = login;
 
   let user = await models.User.findOne( {
     where: {
@@ -32,7 +33,7 @@ export async function signUp (params) {
   } );
 
   if (user) {
-    throw new HttpError( 'Пользователь с таким логином уже существует' )
+    throw new ApiError( 'register.user_already_exist', 401 )
   }
 
   firstName = ensureString( firstName );
@@ -40,6 +41,7 @@ export async function signUp (params) {
 
   user = await models.User.create( {
     login,
+    email,
     firstName,
     lastName,
     password

@@ -18,12 +18,11 @@ export function ensureNumber (value) {
   return value;
 }
 
-export const HOUR_MS = 3600 * 1000;
-export const TIME_PERIODS = {
-  minute: HOUR_MS / 60,
-  hour: HOUR_MS,
-  day: HOUR_MS * 24,
-  week: HOUR_MS * 24 * 7,
-  month: HOUR_MS * 24 * 31,
-  year: HOUR_MS * 24 * 365.26
-};
+/**
+ *
+ * @param {array} ids
+ * @returns {number[]}
+ */
+export function getOnlyNumberIds (ids = []) {
+  return ids.map( Number ).filter( v => !Number.isNaN( v ) );
+}

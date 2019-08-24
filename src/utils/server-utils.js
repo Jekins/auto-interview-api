@@ -43,7 +43,7 @@ export function extractAllParams (request) {
  */
 export function wrapRequest (asyncMethodFn, req, res, next) {
   return Promise.try( _ => {
-    return asyncMethodFn( extractAllParams( req ), req, res );
+    return asyncMethodFn( extractAllParams( req ), req, res, next );
   } ).then( response => {
     return res.json( {
       response

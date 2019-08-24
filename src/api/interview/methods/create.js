@@ -3,6 +3,8 @@ import Promise from 'bluebird';
 import * as models from '../../../models';
 import { ensureNumber, wrapRequest } from "../../../utils";
 
+const { Company } = models;
+
 /**
  * @param {*} req
  * @param {*} res
@@ -27,9 +29,8 @@ export async function create (params) {
     canSwitchQuestion,
     canEditAnswer,
     canAddComment,
-    user
+    user,
   } = params;
-  const authorId = user.id;
 
   duration = ensureNumber( duration );
   canSwitchQuestion = Boolean( canSwitchQuestion );
@@ -45,6 +46,6 @@ export async function create (params) {
     canSwitchQuestion,
     canEditAnswer,
     canAddComment,
-    authorId
+    companyId: null //TODO: надо доделать
   } );
 }

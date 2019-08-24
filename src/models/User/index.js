@@ -17,6 +17,14 @@ export const User = sequelize.define( 'User', {
       isEmail: true
     }
   },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
   password: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -68,15 +76,15 @@ export const User = sequelize.define( 'User', {
   }
 }, {
   getterMethods: {
-    fullName () {
-      const placeholder = '{firstName} {lastName}';
-
-      return [ 'firstName', 'lastName' ].reduce( (placeholder, key) => {
-        const regexp = new RegExp( `\{${ key }\}`, 'gi' );
-
-        return placeholder.replace( regexp, this[ key ] );
-      }, placeholder ).trim();
-    },
+    // fullName () {
+    //   const placeholder = '{firstName} {lastName}';
+    //
+    //   return [ 'firstName', 'lastName' ].reduce( (placeholder, key) => {
+    //     const regexp = new RegExp( `\{${ key }\}`, 'gi' );
+    //
+    //     return placeholder.replace( regexp, this[ key ] );
+    //   }, placeholder ).trim();
+    // },
     isAdmin () {
       if (!this.accessGroup) {
         return false;
