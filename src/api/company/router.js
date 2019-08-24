@@ -7,8 +7,8 @@ import { router as taskRouter } from "../task";
 
 const router = express.Router();
 
-router.use( '/:companyId/interviews', interviewRouter );
-router.use( '/:companyId/tasks', taskRouter );
+router.use( '/', interviewRouter );
+router.use( '/', taskRouter );
 
 router.post( '/', [
   userMiddleware,

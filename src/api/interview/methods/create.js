@@ -3,8 +3,6 @@ import Promise from 'bluebird';
 import * as models from '../../../models';
 import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
 
-const { Company } = models;
-
 /**
  * @param {*} req
  * @param {*} res

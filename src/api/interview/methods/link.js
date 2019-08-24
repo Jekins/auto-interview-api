@@ -1,7 +1,6 @@
 import * as models from '../../../models';
 import { ApiError, ensureNumber, getOnlyNumberIds, wrapRequest } from "../../../utils";
-
-const { Interview } = models;
+import { Op } from "sequelize";
 
 /**
  * @param {*} req
@@ -27,23 +26,28 @@ export async function link (params) {
     taskIds = taskIds.split( ',' );
   }
 
-  taskIds = getOnlyNumberIds( taskIds );
-
   if (!Array.isArray( taskIds )) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
+  const tasks =  await models.Task.findAll( {
+    where: {
+      id: {
+        [ Op.in ]: taskIds
+      }
+    }
+  } );
+
+  taskIds = tasks.map( user => user.id );
   interviewId = ensureNumber( interviewId );
 
-  const interview = await Interview.findByPk( interviewId );
+  const interview = await models.Interview.findByPk( interviewId );
 
   if (!interview) {
     throw new ApiError( 'interview.not_found', 404 );
   }
 
-  // return Object.keys( interview.__proto__ );
-
-  await interview.setTasks( taskIds );
+  await interview.addTasks( taskIds );
 
   return interview.getTasks();
 }
