@@ -9,14 +9,14 @@ import { ApiError, wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function getMeRequest (req, res, next) {
-  return wrapRequest( getMe, req, res, next );
+export function meRequest (req, res, next) {
+  return wrapRequest( me, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function getMe (params) {
+export async function me (params) {
   return params.user;
 }

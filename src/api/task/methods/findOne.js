@@ -9,23 +9,29 @@ import { ApiError, wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function getOneByIdRequest (req, res, next) {
-  return wrapRequest( getOneById, req, res, next );
+export function findOneRequest (req, res, next) {
+  return wrapRequest( findOne, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function getOneById (params) {
+export async function findOne (params) {
   const {
+    taskId: id,
     companyId
   } = params;
-  const company =  await models.Company.findByPk( companyId );
+  const task =  await models.Task.findOne( {
+    where: {
+      id,
+      companyId
+    }
+  } );
 
-  if (!company) {
-    throw ApiError( 'company.not_found', 404 );
+  if (!task) {
+    throw ApiError( 'task.not_found', 404 );
   }
 
-  return company;
+  return task;
 }

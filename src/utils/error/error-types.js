@@ -35,6 +35,9 @@ const errorTypes = new Map( [
   // interview
   [ 'interview.not_found', 'Интервью не найдено' ],
 
+  // task
+  [ 'task.not_found', 'Задание не найдено' ],
+
   // company
   [ 'company.not_found', 'Компания не найдена' ],
   [ 'company.key.required_field', 'Укажите id компании' ],

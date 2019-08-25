@@ -9,15 +9,15 @@ import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function linkRequest (req, res, next) {
-  return wrapRequest( link, req, res, next );
+export function addTasksRequest (req, res, next) {
+  return wrapRequest( addTasks, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function link (params) {
+export async function addTasks (params) {
   let {
     interviewId,
     taskIds = []

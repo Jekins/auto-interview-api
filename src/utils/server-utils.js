@@ -30,7 +30,7 @@ export function normalizePort (value) {
  */
 export function extractAllParams (request) {
   return Object.assign(
-    {}, request.body, request.query, request.params, { user: request.user }
+    {}, request.body, request.query, request.params, { user: request.user, company: request.company }
   );
 }
 

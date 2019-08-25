@@ -16,8 +16,11 @@ export function makeRelations () {
   User.belongsToMany( Company, { through: 'UsersToCompanies', foreignKey: 'userId', timestamps: false } );
   Company.belongsToMany( User, { through: 'UsersToCompanies', foreignKey: 'companyId', timestamps: false } );
 
-  Company.hasMany( Interview, { foreignKey: 'companyId', targetKey: 'id', as: 'Company' } );
-  Interview.belongsTo( Company, { foreignKey: 'companyId', targetKey: 'id', as: 'Company' } );
+  Company.hasMany( Interview, { foreignKey: 'companyId', targetKey: 'id' } );
+  Interview.belongsTo( Company, { foreignKey: 'companyId', targetKey: 'id' } );
+
+  Company.hasMany( Task, { foreignKey: 'companyId', targetKey: 'id' } );
+  Task.belongsTo( Company, { foreignKey: 'companyId', targetKey: 'id' } );
 
   Task.belongsToMany( Interview, { through: 'TasksToInterviews', foreignKey: 'taskId', timestamps: false } );
   Interview.belongsToMany( Task, { through: 'TasksToInterviews', foreignKey: 'interviewId', timestamps: false } );

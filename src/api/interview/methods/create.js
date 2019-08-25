@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 
 import * as models from '../../../models';
 import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
+import { addInterviews } from "../../company/methods";
 
 /**
  * @param {*} req
@@ -29,10 +30,6 @@ export async function create (params) {
     canAddComment,
     companyId,
   } = params;
-
-  if (!companyId) {
-    throw new ApiError( 'company.not_found', 404 );
-  }
 
   duration = ensureNumber( duration );
   canSwitchQuestion = Boolean( canSwitchQuestion );

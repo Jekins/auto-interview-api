@@ -9,24 +9,20 @@ import { wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function createRequest (req, res, next) {
-  return wrapRequest( create, req, res, next );
+export function tasksRequest (req, res, next) {
+  return wrapRequest( tasks, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function create (params) {
-  let {
-    title,
-    description,
+export async function tasks (params) {
+  const {
     companyId
   } = params;
 
-  return models.Task.create( {
-    title,
-    description,
-    companyId
+  return models.Task.findAll( {
+    where: { companyId }
   } );
 }

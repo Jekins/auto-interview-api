@@ -8,7 +8,13 @@ const router = express.Router();
 router.get( '/', [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] )
-], methods.getMeRequest );
+], methods.meRequest );
+
+
+router.get( '/companies', [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+], methods.companiesRequest );
 
 export {
   router

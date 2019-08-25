@@ -8,15 +8,15 @@ import { wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function getAllRequest (req, res, next) {
-  return wrapRequest( getAll, req, res, next );
+export function companiesRequest (req, res, next) {
+  return wrapRequest( companies, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function getAll (params) {
+export async function companies (params) {
   const {
     user
   } = params;
