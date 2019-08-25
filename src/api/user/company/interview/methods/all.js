@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../models';
-import { wrapRequest } from "../../../utils";
+import * as models from '../../../../../models';
+import { wrapRequest } from "../../../../../utils";
 
 /**
  * @param {*} req
@@ -9,19 +9,20 @@ import { wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function interviewsRequest (req, res, next) {
-  return wrapRequest( interviews, req, res, next );
+export function allRequest (req, res, next) {
+  return wrapRequest( all, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function interviews (params) {
+export async function all (params) {
   const {
     companyId
   } = params;
 
+  console.log( '___ companyId:', companyId );
   return models.Interview.findAll( {
     where: { companyId }
   } );

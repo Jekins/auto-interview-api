@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 
-import { wrapRequest } from "../../../utils";
+import { wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -8,15 +8,15 @@ import { wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function companiesRequest (req, res, next) {
-  return wrapRequest( companies, req, res, next );
+export function allRequest (req, res, next) {
+  return wrapRequest( all, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function companies (params) {
+export async function all (params) {
   const {
     user
   } = params;

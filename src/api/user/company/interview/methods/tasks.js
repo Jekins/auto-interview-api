@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 
-import * as models from '../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
+import * as models from '../../../../../models';
+import { ApiError, ensureNumber, wrapRequest } from "../../../../../utils";
 
 /**
  * @param {*} req
@@ -9,15 +9,15 @@ import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function addTasksRequest (req, res, next) {
-  return wrapRequest( addTasks, req, res, next );
+export function tasksRequest (req, res, next) {
+  return wrapRequest( tasks, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function addTasks (params) {
+export async function tasks (params) {
   let {
     interviewId,
     taskIds = []

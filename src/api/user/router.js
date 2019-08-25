@@ -1,7 +1,8 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsGroupsMiddleware, userMiddleware,  } from "../middleware";
+import * as methodsCompany from "./company/methods";
+import { rightsGroupsMiddleware, userMiddleware, } from "../middleware";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get( '/', [
 router.get( '/companies', [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
-], methods.companiesRequest );
+], methodsCompany.allRequest );
 
 export {
   router

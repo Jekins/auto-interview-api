@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsCompanyMiddleware, rightsGroupsMiddleware, userMiddleware } from "../middleware";
+import { rightsCompanyMiddleware, rightsGroupsMiddleware, userMiddleware } from "../../../middleware";
 
 const router = express.Router();
 const route = '/:companyId/task/';
@@ -16,7 +16,7 @@ router.get( `${ route }:taskId`, [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware(),
-], methods.findOneRequest );
+], methods.oneRequest );
 
 export {
   router

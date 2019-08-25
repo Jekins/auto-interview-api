@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
-import * as models from '../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
+import * as models from '../../../../models';
+import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -9,15 +9,15 @@ import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function addUsersRequest (req, res, next) {
-  return wrapRequest( addUsers, req, res, next );
+export function usersRequest (req, res, next) {
+  return wrapRequest( users, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function addUsers (params) {
+export async function users (params) {
   let {
     companyId,
     userEmails = [],

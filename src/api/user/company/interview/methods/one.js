@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../models';
-import { ApiError, wrapRequest } from "../../../utils";
+import * as models from '../../../../../models';
+import { ApiError, wrapRequest } from "../../../../../utils";
 
 /**
  * @param {*} req
@@ -9,20 +9,20 @@ import { ApiError, wrapRequest } from "../../../utils";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function findOneRequest (req, res, next) {
-  return wrapRequest( findOne, req, res, next );
+export function oneRequest (req, res, next) {
+  return wrapRequest( one, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function findOne (params) {
+export async function one (params) {
   const {
     interviewId: id,
     companyId
   } = params;
-  const interview =  await models.Interview.findOne( {
+  const interview = await models.Interview.findOne( {
     where: {
       id,
       companyId

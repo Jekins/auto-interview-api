@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 
 import cors from './cors';
 import { router as passportRouter } from "./passport";
-import { router as companyRouter } from "./company";
+import { router as companyRouter } from "./user/company";
 import { router as userRouter } from "./user";
 
 const router = express.Router();

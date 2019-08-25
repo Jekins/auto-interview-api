@@ -1,8 +1,8 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../models';
-import { ApiError, wrapRequest } from "../../../utils";
-import { addUsers } from "./addUsers";
+import * as models from '../../../../models';
+import { ApiError, wrapRequest } from "../../../../utils";
+import { users } from "./users";
 
 /**
  * @param {*} req
@@ -46,7 +46,7 @@ export async function create (params) {
     name,
   } );
 
-  await addUsers( {
+  await users( {
     companyId: company.id,
     userEmails: [ user.email ]
   } );
