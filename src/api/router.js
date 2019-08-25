@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from './cors';
 import { router as passportRouter } from "./passport";
 import { router as companyRouter } from "./company";
+import { router as userRouter } from "./user";
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.all( '*', cors );
 
 router.use( '/passport', passportRouter );
 router.use( '/companies', companyRouter );
+router.use( '/users', userRouter );
 
 export {
   router

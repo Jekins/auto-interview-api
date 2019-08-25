@@ -14,6 +14,13 @@ export async function companyMiddleware (req, res, next) {
   } ).catch( next );
 }
 
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {Function} next
+ * @returns {Promise<void>}
+ */
 export async function retrieveCompany (req, res, next) {
   const { companyId } = extractAllParams( req );
 

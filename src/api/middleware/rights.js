@@ -45,6 +45,10 @@ export function rightsGroupsMiddleware (...groupsArray) {
   };
 }
 
+/**
+ * Check if user has right to company
+ * @returns {function(*=, *=, *=): Promise<*|undefined>}
+ */
 export function rightsCompanyMiddleware () {
   async function checkRights (req, res, next) {
     let {

@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsGroupsMiddleware, rightsCompanyMiddleware, userMiddleware } from "../middleware";
+import { rightsGroupsMiddleware, rightsCompanyMiddleware, userMiddleware, companyMiddleware } from "../middleware";
 import { router as interviewRouter } from "../interview";
 import { router as taskRouter } from "../task";
 
@@ -20,6 +20,17 @@ router.post( '/:companyId/users', [
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware(),
 ], methods.linkRequest );
+
+router.get( '/', [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+], methods.getAllRequest );
+
+router.get( '/:companyId', [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+  rightsCompanyMiddleware(),
+], methods.getOneByIdRequest );
 
 export {
   router

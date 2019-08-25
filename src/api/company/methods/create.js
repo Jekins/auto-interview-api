@@ -34,9 +34,7 @@ export async function create (params) {
   }
 
   let company = await models.Company.findOne( {
-    where: {
-      key
-    }
+    where: { key }
   } );
 
   if (company) {

@@ -24,7 +24,7 @@ export async function signUp (params) {
     lastName,
     password,
   } = params;
-  const email = login;
+  const email = login; // TODO: сделать проверку на валидный email
 
   let user = await models.User.findOne( {
     where: {

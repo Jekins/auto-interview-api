@@ -16,13 +16,13 @@ export function signInRequest (req, res, next) {
 
 /**
  *
- * @param {object} params
- * @param {object} req
- * @param {object} res
+ * @param {*} params
+ * @param {*} req
+ * @param {*} res
  * @returns {Promise<AuthToken.token|{allowNull, type}|*|ServerResponse|String|string>}
  */
 export async function signIn (params, req, res) {
-  let {
+  const {
     login,
     password
   } = params;

@@ -14,8 +14,11 @@ export function signOutRequest (req, res, next) {
 }
 
 /**
+ *
  * @param {*} params
- * @return {Promise<any>|*}
+ * @param {*} req
+ * @param {*} res
+ * @returns {Promise<boolean>}
  */
 export async function signOut (params, req, res) {
   const AUTH_COOKIE_NAME = config.auth.cookieName;

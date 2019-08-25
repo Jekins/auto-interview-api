@@ -1,6 +1,7 @@
-import * as models from '../../../models';
-import { ApiError, ensureNumber, getOnlyNumberIds, wrapRequest } from "../../../utils";
 import { Op } from "sequelize";
+
+import * as models from '../../../models';
+import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
 
 /**
  * @param {*} req
@@ -30,7 +31,7 @@ export async function link (params) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
-  const tasks =  await models.Task.findAll( {
+  const tasks = await models.Task.findAll( {
     where: {
       id: {
         [ Op.in ]: taskIds
