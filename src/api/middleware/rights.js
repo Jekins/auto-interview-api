@@ -53,9 +53,9 @@ export function rightsGroupsMiddleware (...groupsArray) {
  */
 export function rightsCompanyMiddleware () {
   async function checkRights (req, res, next) {
-    const companies = await getCompany( req );
+    const company = await getCompany( req );
 
-    if (!companies) {
+    if (!company) {
       return next( new ApiError( 'access_denied', 403 ) );
     }
 

@@ -2,10 +2,10 @@ import express from 'express';
 
 import * as methods from './methods';
 import {
+  userMiddleware,
   companyMiddleware,
   rightsCompanyMiddleware,
   rightsGroupsMiddleware,
-  userMiddleware
 } from "../../middleware";
 
 const router = express.Router();
@@ -14,6 +14,7 @@ const routeId = `${ route }:taskId/`;
 
 router.post( route, [
   userMiddleware,
+  companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware()
 ], methods.createRequest );
@@ -27,6 +28,7 @@ router.get( route, [
 
 router.get( routeId, [
   userMiddleware,
+  companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware(),
 ], methods.oneRequest );

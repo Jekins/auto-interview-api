@@ -19,25 +19,16 @@ export function usersRequest (req, res, next) {
  */
 export async function users (params) {
   let {
-    companyId,
+    company,
     userEmails = [],
   } = params;
-
-  companyId = ensureNumber( companyId );
 
   if (typeof userEmails === 'string') {
     userEmails = userEmails.split( ',' );
   }
 
-  if (!Array.isArray( userEmails ) || !companyId) {
+  if (!Array.isArray( userEmails )) {
     throw new ApiError( 'invalid_value', 400 );
-  }
-
-  const company = await models.Company.findByPk( companyId );
-
-  console.log( '___ 2:', company.__proto__ );
-  if (!company) {
-    throw new ApiError( 'companies.not_found', 404 );
   }
 
   let users = await models.User.findAll( {

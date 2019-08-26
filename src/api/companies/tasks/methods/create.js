@@ -21,12 +21,11 @@ export async function create (params) {
   let {
     title,
     description,
-    companyId
+    company
   } = params;
 
-  return models.Task.create( {
+  return await company.createTask( {
     title,
     description,
-    companyId
   } );
 }

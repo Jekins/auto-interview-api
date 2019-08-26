@@ -2,10 +2,10 @@ import express from 'express';
 
 import * as methods from './methods';
 import {
+  userMiddleware,
   companyMiddleware,
   rightsCompanyMiddleware,
   rightsGroupsMiddleware,
-  userMiddleware
 } from "../../middleware";
 
 const router = express.Router();
@@ -15,6 +15,7 @@ const routeId = `${ route }:interviewId/`;
 // POST
 router.post( route, [
   userMiddleware,
+  companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware()
 ], methods.createRequest );

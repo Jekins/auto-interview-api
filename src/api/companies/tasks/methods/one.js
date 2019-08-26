@@ -20,13 +20,10 @@ export function oneRequest (req, res, next) {
 export async function one (params) {
   const {
     taskId: id,
-    companyId
+    company
   } = params;
-  const task = await models.Task.findOne( {
-    where: {
-      id,
-      companyId
-    }
+  const task = await company.getTasks( {
+    where: { id }
   } );
 
   if (!task) {

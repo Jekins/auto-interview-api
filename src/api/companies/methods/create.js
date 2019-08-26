@@ -2,7 +2,6 @@ import Promise from 'bluebird';
 
 import * as models from '../../../models';
 import { ApiError, wrapRequest } from "../../../utils";
-import { users } from "./users";
 
 /**
  * @param {*} req
@@ -29,6 +28,14 @@ export async function create (params) {
     throw ApiError( 'companies.slug.required_field', 400 );
   }
 
+  if ((/^\d+$/g).test( slug )) {
+    throw new ApiError( 'companies.slug.only_numbers', 400 )
+  }
+
+  if (!(/^[\w&.\-]+$/g).test( slug )) {
+    throw new ApiError( 'companies.slug.invalid_value', 400 )
+  }
+
   if (!name) {
     throw ApiError( 'companies.name.required_field', 400 );
   }
@@ -41,22 +48,9 @@ export async function create (params) {
     throw new ApiError( 'companies.already_exist', 401 )
   }
 
-  if ((/^\d+$/g).test( slug )) {
-    throw new ApiError( 'companies.slug.only_numbers', 400 )
-  }
-
-  if (!(/^[\w&.\-]+$/g).test( slug )) {
-    throw new ApiError( 'companies.slug.invalid_value', 400 )
-  }
-
-  company = await models.Company.create( {
+  company = await user.createCompany( {
     slug,
     name,
-  } );
-
-  await users( {
-    companyId: company.id,
-    userEmails: [ user.email ]
   } );
 
   return company;

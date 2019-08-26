@@ -20,6 +20,7 @@ router.post( route, [
 
 router.post( `${ routeId }users`, [
   userMiddleware,
+  companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware(),
 ], methods.usersRequest );

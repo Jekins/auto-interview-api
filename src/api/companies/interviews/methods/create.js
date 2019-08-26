@@ -1,8 +1,6 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
-import { addInterviews } from "../../methods";
+import { ensureNumber, wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -28,7 +26,7 @@ export async function create (params) {
     canSwitchQuestion,
     canEditAnswer,
     canAddComment,
-    companyId,
+    company
   } = params;
 
   duration = ensureNumber( duration );
@@ -36,7 +34,7 @@ export async function create (params) {
   canEditAnswer = Boolean( canEditAnswer );
   canAddComment = Boolean( canAddComment );
 
-  return await models.Interview.create( {
+  return await company.createInterview( {
     titleStart,
     descriptionStart,
     titleFinish,
@@ -45,6 +43,5 @@ export async function create (params) {
     canSwitchQuestion,
     canEditAnswer,
     canAddComment,
-    companyId
   } );
 }

@@ -19,11 +19,5 @@ export function oneRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function one (params, req) {
-  const company = await getCompany( req );
-
-  if (!company) {
-    throw ApiError( 'companies.not_found', 404 );
-  }
-
-  return company;
+  return await getCompany( req );
 }
