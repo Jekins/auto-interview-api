@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import * as models from "../../models";
 import { extractAllParams } from "../../utils";
+import { Op } from "sequelize";
 
 /**
  * @param {*} req
@@ -22,13 +23,44 @@ export async function companyMiddleware (req, res, next) {
  * @returns {Promise<void>}
  */
 export async function retrieveCompany (req, res, next) {
-  const { companyId } = extractAllParams( req );
+  const company = await getCompany( req );
 
-  if (!companyId) {
+  if (!company) {
     next();
   }
 
-  req.company = await models.Company.findByPk( companyId );
+  req.company = company;
 
   next();
+}
+
+/**
+ *
+ * @param {any} req
+ * @returns {Promise<null|*>}
+ */
+export async function getCompany (req) {
+  const {
+    companyId,
+    user
+  } = extractAllParams( req );
+
+  if (!companyId || !user) {
+    return null;
+  }
+
+  const companies = await user.getCompanies( {
+    where: {
+      [ Op.or ]: {
+        id: companyId,
+        key: companyId
+      }
+    }
+  } );
+
+  if (!companies.length) {
+    return null;
+  }
+
+  return companies[ 0 ];
 }

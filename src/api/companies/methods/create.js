@@ -38,7 +38,15 @@ export async function create (params) {
   } );
 
   if (company) {
-    throw new ApiError( 'companies.user_already_exist', 401 )
+    throw new ApiError( 'companies.already_exist', 401 )
+  }
+
+  if ((/^\d+$/g).test( key )) {
+    throw new ApiError( 'companies.key.only_numbers', 400 )
+  }
+
+  if (!(/^[\w&.\-]+$/g).test( key )) {
+    throw new ApiError( 'companies.key.invalid_value', 400 )
   }
 
   company = await models.Company.create( {

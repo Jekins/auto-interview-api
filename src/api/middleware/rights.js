@@ -1,9 +1,11 @@
 import deap from 'deap';
+import Promise from "bluebird";
+import { Op } from "sequelize";
 
 import userGroups from "../../models/User/userGroups";
 import { ApiError } from "../../utils/error";
 import { ensureNumber, extractAllParams, wrapRequest } from "../../utils";
-import Promise from "bluebird";
+import { getCompany } from "./company";
 
 /**
  * Check if users in right group
@@ -51,20 +53,9 @@ export function rightsGroupsMiddleware (...groupsArray) {
  */
 export function rightsCompanyMiddleware () {
   async function checkRights (req, res, next) {
-    let {
-      companyId,
-      user
-    } = extractAllParams( req );
+    const companies = await getCompany( req );
 
-    companyId = ensureNumber( companyId );
-
-    if (!companyId) {
-      return next( new ApiError( 'companies.not_found', 404 ) );
-    }
-
-    const hasCompany = await user.hasCompany( companyId );
-
-    if (!hasCompany) {
+    if (!companies) {
       return next( new ApiError( 'access_denied', 403 ) );
     }
 
