@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../../../utils";
+import * as models from '../../../../models';
+import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
 import { addInterviews } from "../../methods";
 
 /**

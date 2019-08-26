@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../../../models';
-import { wrapRequest } from "../../../../../utils";
+import * as models from '../../../../models';
+import { ensureNumber, wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -18,11 +18,18 @@ export function allRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function all (params) {
-  const {
-    companyId
+  let {
+    companyId,
+    limit = 20,
+    offset = 0
   } = params;
 
+  limit = ensureNumber( limit );
+  offset = ensureNumber( offset );
+
   return models.Interview.findAll( {
-    where: { companyId }
+    where: { companyId },
+    limit,
+    offset
   } );
 }

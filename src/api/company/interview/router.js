@@ -6,7 +6,7 @@ import {
   rightsCompanyMiddleware,
   rightsGroupsMiddleware,
   userMiddleware
-} from "../../../middleware";
+} from "../../middleware";
 
 const router = express.Router();
 const routeSingle = '/:companyId/interview/';

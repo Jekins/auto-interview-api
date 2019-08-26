@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 
-import { wrapRequest } from "../../../../utils";
+import { ensureNumber, wrapRequest } from "../../../utils";
+import * as models from '../../../models';
 
 /**
  * @param {*} req
@@ -17,8 +18,17 @@ export function allRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function all (params) {
-  const {
-    user
+  let {
+    user,
+    limit = 20,
+    offset = 0
   } = params;
-  return await user.getCompanies();
+
+  limit = ensureNumber( limit );
+  offset = ensureNumber( offset );
+
+  return models.Company.findAll({
+    offset,
+    limit
+  });
 }

@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsGroupsMiddleware, rightsCompanyMiddleware, userMiddleware, companyMiddleware } from "../../middleware";
+import { rightsGroupsMiddleware, rightsCompanyMiddleware, userMiddleware, companyMiddleware } from "../middleware";
 import { router as interviewRouter } from "./interview";
 import { router as taskRouter } from "./task";
 

@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../../../models';
-import { ApiError, wrapRequest } from "../../../../../utils";
+import * as models from '../../../../models';
+import { ApiError, wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -19,19 +19,19 @@ export function oneRequest (req, res, next) {
  */
 export async function one (params) {
   const {
-    interviewId: id,
+    taskId: id,
     companyId
   } = params;
-  const interview = await models.Interview.findOne( {
+  const task = await models.Task.findOne( {
     where: {
       id,
       companyId
     }
   } );
 
-  if (!interview) {
-    throw ApiError( 'interview.not_found', 404 );
+  if (!task) {
+    throw ApiError( 'task.not_found', 404 );
   }
 
-  return interview;
+  return task;
 }

@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
-import * as models from '../../../../models';
-import { ApiError, wrapRequest } from "../../../../utils";
+import * as models from '../../../models';
+import { ApiError, wrapRequest } from "../../../utils";
 import { users } from "./users";
 
 /**

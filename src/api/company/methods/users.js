@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
-import * as models from '../../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
+import * as models from '../../../models';
+import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
 
 /**
  * @param {*} req
@@ -35,6 +35,7 @@ export async function users (params) {
 
   const company = await models.Company.findByPk( companyId );
 
+  console.log( '___ 2:', company.__proto__ );
   if (!company) {
     throw new ApiError( 'company.not_found', 404 );
   }
