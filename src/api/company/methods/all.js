@@ -27,7 +27,7 @@ export async function all (params) {
   limit = ensureNumber( limit );
   offset = ensureNumber( offset );
 
-  return models.Company.findAll({
+  return await user.getCompanies({
     offset,
     limit
   });
