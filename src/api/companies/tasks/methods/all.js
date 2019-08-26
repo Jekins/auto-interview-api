@@ -19,7 +19,7 @@ export function allRequest (req, res, next) {
  */
 export async function all (params) {
   let {
-    companyId,
+    company,
     limit,
     offset
   } = params;
@@ -27,8 +27,7 @@ export async function all (params) {
   limit = getLimitByMax( limit );
   offset = ensureNumber( offset );
 
-  return models.Task.findAll( {
-    where: { companyId },
+  return await company.getTasks( {
     limit,
     offset
   } );

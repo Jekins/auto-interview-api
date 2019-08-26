@@ -22,13 +22,13 @@ export async function one (params) {
     taskId: id,
     company
   } = params;
-  const task = await company.getTasks( {
+  const tasks = await company.getTasks( {
     where: { id }
   } );
 
-  if (!task) {
+  if (!tasks.length) {
     throw ApiError( 'tasks.not_found', 404 );
   }
 
-  return task;
+  return tasks[ 0 ];
 }

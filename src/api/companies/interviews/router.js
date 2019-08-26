@@ -22,6 +22,7 @@ router.post( route, [
 
 router.post( `${ routeId }tasks`, [
   userMiddleware,
+  companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware()
 ], methods.tasksRequest );
@@ -36,6 +37,7 @@ router.get( route, [
 
 router.get( routeId, [
   userMiddleware,
+  companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware(),
 ], methods.oneRequest );

@@ -12,6 +12,7 @@ const router = express.Router();
 const route = '/:companyId/tasks/';
 const routeId = `${ route }:taskId/`;
 
+// POST
 router.post( route, [
   userMiddleware,
   companyMiddleware,
@@ -19,6 +20,8 @@ router.post( route, [
   rightsCompanyMiddleware()
 ], methods.createRequest );
 
+
+// GET
 router.get( route, [
   userMiddleware,
   companyMiddleware,

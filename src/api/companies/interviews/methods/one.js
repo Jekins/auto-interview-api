@@ -20,18 +20,15 @@ export function oneRequest (req, res, next) {
 export async function one (params) {
   const {
     interviewId: id,
-    companyId
+    company
   } = params;
-  const interview = await models.Interview.findOne( {
-    where: {
-      id,
-      companyId
-    }
+  const interviews = await company.getInterviews( {
+    where: { id }
   } );
 
-  if (!interview) {
-    throw ApiError( 'interviews.not_found', 404 );
+  if (!interviews.length) {
+    throw ApiError( 'tasks.not_found', 404 );
   }
 
-  return interview;
+  return interviews[ 0 ];
 }
