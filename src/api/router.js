@@ -13,9 +13,9 @@ router.use( bodyParser.urlencoded( { extended: false } ) );
 
 router.all( '*', cors );
 
-router.use( '/passport', passportRouter );
-router.use( '/company', companyRouter );
-router.use( '/user', userRouter );
+router.use( '/', passportRouter );
+router.use( '/', companyRouter );
+router.use( '/', userRouter );
 
 export {
   router

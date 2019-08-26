@@ -22,7 +22,6 @@ export async function all (params) {
     companyId
   } = params;
 
-  console.log( '___ companyId:', companyId );
   return models.Interview.findAll( {
     where: { companyId }
   } );
