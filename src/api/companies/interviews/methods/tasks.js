@@ -45,7 +45,7 @@ export async function tasks (params) {
   const interview = await models.Interview.findByPk( interviewId );
 
   if (!interview) {
-    throw new ApiError( 'interview.not_found', 404 );
+    throw new ApiError( 'interviews.not_found', 404 );
   }
 
   await interview.addTasks( taskIds );

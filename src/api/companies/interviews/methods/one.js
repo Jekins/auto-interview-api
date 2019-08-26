@@ -30,7 +30,7 @@ export async function one (params) {
   } );
 
   if (!interview) {
-    throw ApiError( 'interview.not_found', 404 );
+    throw ApiError( 'interviews.not_found', 404 );
   }
 
   return interview;

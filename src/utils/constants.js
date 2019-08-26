@@ -1,4 +1,4 @@
-export const baseDomain = 'auto-interview.ru';
+export const baseDomain = 'auto-interviews.ru';
 
 export const shortMonths = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
 

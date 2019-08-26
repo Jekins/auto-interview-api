@@ -37,7 +37,7 @@ export async function users (params) {
 
   console.log( '___ 2:', company.__proto__ );
   if (!company) {
-    throw new ApiError( 'company.not_found', 404 );
+    throw new ApiError( 'companies.not_found', 404 );
   }
 
   let users = await models.User.findAll( {

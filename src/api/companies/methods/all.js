@@ -27,8 +27,8 @@ export async function all (params) {
   limit = ensureNumber( limit );
   offset = ensureNumber( offset );
 
-  return await user.getCompanies({
+  return await user.getCompanies( {
     offset,
     limit
-  });
+  } );
 }

@@ -24,7 +24,7 @@ export async function one (params) {
   const company = await models.Company.findByPk( companyId );
 
   if (!company) {
-    throw ApiError( 'company.not_found', 404 );
+    throw ApiError( 'companies.not_found', 404 );
   }
 
   return company;

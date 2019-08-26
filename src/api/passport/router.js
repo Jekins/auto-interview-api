@@ -2,11 +2,12 @@ import express from 'express';
 import * as methods from './methods';
 
 const router = express.Router();
-const routeSingle = '/passport/';
+const route = '/';
 
-router.post( `${ routeSingle }sign-in`, methods.signInRequest );
-router.post( `${ routeSingle }sign-up`, methods.signUpRequest );
-router.post( `${ routeSingle }sign-out`, methods.signOutRequest );
+// POST
+router.post( `${ route }sign-in`, methods.signInRequest );
+router.post( `${ route }sign-up`, methods.signUpRequest );
+router.post( `${ route }sign-out`, methods.signOutRequest );
 
 export {
   router

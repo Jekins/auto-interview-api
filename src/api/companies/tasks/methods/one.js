@@ -30,7 +30,7 @@ export async function one (params) {
   } );
 
   if (!task) {
-    throw ApiError( 'task.not_found', 404 );
+    throw ApiError( 'tasks.not_found', 404 );
   }
 
   return task;

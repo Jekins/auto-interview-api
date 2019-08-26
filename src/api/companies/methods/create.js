@@ -26,11 +26,11 @@ export async function create (params) {
   } = params;
 
   if (!key) {
-    throw ApiError( 'company.key.required_filed', 400 );
+    throw ApiError( 'companies.key.required_filed', 400 );
   }
 
   if (!name) {
-    throw ApiError( 'company.name.required_filed', 400 );
+    throw ApiError( 'companies.name.required_filed', 400 );
   }
 
   let company = await models.Company.findOne( {
@@ -38,7 +38,7 @@ export async function create (params) {
   } );
 
   if (company) {
-    throw new ApiError( 'company.user_already_exist', 401 )
+    throw new ApiError( 'companies.user_already_exist', 401 )
   }
 
   company = await models.Company.create( {

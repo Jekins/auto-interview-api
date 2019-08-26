@@ -9,17 +9,24 @@ import {
 } from "../../middleware";
 
 const router = express.Router();
-const routeSingle = '/:companyId/task/';
-const routeMany = '/:companyId/tasks/';
-const routeId = `${ routeSingle }:taskId/`;
+const route = '/:companyId/interviews/';
+const routeId = `${ route }:interviewId/`;
 
-router.post( routeSingle, [
+// POST
+router.post( route, [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
   rightsCompanyMiddleware()
 ], methods.createRequest );
 
-router.get( routeMany, [
+router.post( `${ routeId }tasks`, [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+  rightsCompanyMiddleware()
+], methods.tasksRequest );
+
+// GET
+router.get( route, [
   userMiddleware,
   companyMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),

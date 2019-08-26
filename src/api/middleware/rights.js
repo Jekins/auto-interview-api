@@ -6,7 +6,7 @@ import { ensureNumber, extractAllParams, wrapRequest } from "../../utils";
 import Promise from "bluebird";
 
 /**
- * Check if user in right group
+ * Check if users in right group
  * @param {array} groupsArray
  * @returns {Function}
  */
@@ -46,7 +46,7 @@ export function rightsGroupsMiddleware (...groupsArray) {
 }
 
 /**
- * Check if user has right to company
+ * Check if users has right to companies
  * @returns {function(*=, *=, *=): Promise<*|undefined>}
  */
 export function rightsCompanyMiddleware () {
@@ -59,7 +59,7 @@ export function rightsCompanyMiddleware () {
     companyId = ensureNumber( companyId );
 
     if (!companyId) {
-      return next( new ApiError( 'company.not_found', 404 ) );
+      return next( new ApiError( 'companies.not_found', 404 ) );
     }
 
     const hasCompany = await user.hasCompany( companyId );

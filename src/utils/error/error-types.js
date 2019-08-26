@@ -32,17 +32,17 @@ const errorTypes = new Map( [
   [ 'register.invalid_name', 'Имя не может быть меньше 2 и больше 32 символов, а также должно содержать все кириллические или латинские символы. Кровь дракона на ваше усмотрение.' ],
   [ 'register.user_already_exist', 'Такой e-mail уже используется' ],
 
-  // interview
-  [ 'interview.not_found', 'Интервью не найдено' ],
+  // interviews
+  [ 'interviews.not_found', 'Интервью не найдено' ],
 
-  // task
-  [ 'task.not_found', 'Задание не найдено' ],
+  // tasks
+  [ 'tasks.not_found', 'Задание не найдено' ],
 
-  // company
-  [ 'company.not_found', 'Компания не найдена' ],
-  [ 'company.key.required_field', 'Укажите id компании' ],
-  [ 'company.name.required_field', 'Укажите название компании' ],
-  [ 'company.user_already_exist', 'Компания уже существует' ],
+  // companies
+  [ 'companies.not_found', 'Компания не найдена' ],
+  [ 'companies.key.required_field', 'Укажите id компании' ],
+  [ 'companies.name.required_field', 'Укажите название компании' ],
+  [ 'companies.user_already_exist', 'Компания уже существует' ],
 ] );
 
 export { errorTypes };

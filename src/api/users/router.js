@@ -4,9 +4,10 @@ import * as methods from './methods';
 import { rightsGroupsMiddleware, userMiddleware, } from "../middleware";
 
 const router = express.Router();
-const routeSingle = '/user/';
+const route = '/';
 
-router.get( routeSingle, [
+// POST
+router.get( route, [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] )
 ], methods.meRequest );

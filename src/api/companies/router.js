@@ -2,23 +2,30 @@ import express from 'express';
 
 import * as methods from './methods';
 import { rightsGroupsMiddleware, rightsCompanyMiddleware, userMiddleware, companyMiddleware } from "../middleware";
-import { router as interviewRouter } from "./interview";
-import { router as taskRouter } from "./task";
+import { router as interviewRouter } from "./interviews";
+import { router as taskRouter } from "./tasks";
 
 const router = express.Router();
-const routeSingle = '/company/';
-const routeMany = '/companies/';
-const routeId = `${ routeSingle }:companyId/`;
+const route = '/';
+const routeId = `${ route }:companyId/`;
 
-router.use( routeSingle, interviewRouter );
-router.use( routeSingle, taskRouter );
+router.use( route, interviewRouter );
+router.use( route, taskRouter );
 
-router.post( routeSingle, [
+// POST
+router.post( route, [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] )
 ], methods.createRequest );
 
-router.get( routeMany, [
+router.post( `${ routeId }users`, [
+  userMiddleware,
+  rightsGroupsMiddleware( [ 'user' ] ),
+  rightsCompanyMiddleware(),
+], methods.usersRequest );
+
+// GET
+router.get( route, [
   userMiddleware,
   rightsGroupsMiddleware( [ 'user' ] ),
 ], methods.allRequest );
@@ -29,11 +36,6 @@ router.get( routeId, [
   rightsCompanyMiddleware(),
 ], methods.oneRequest );
 
-router.post( `${ routeId }users`, [
-  userMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
-], methods.usersRequest );
 
 export {
   router
