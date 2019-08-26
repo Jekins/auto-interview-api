@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
 
-import { ensureNumber, wrapRequest } from "../../../utils";
-import * as models from '../../../models';
+import { ensureNumber, getLimitByMax, wrapRequest } from "../../../utils";
 
 /**
  * @param {*} req
@@ -20,11 +19,11 @@ export function allRequest (req, res, next) {
 export async function all (params) {
   let {
     user,
-    limit = 20,
-    offset = 0
+    limit,
+    offset
   } = params;
 
-  limit = ensureNumber( limit );
+  limit = getLimitByMax( limit );
   offset = ensureNumber( offset );
 
   return await user.getCompanies( {

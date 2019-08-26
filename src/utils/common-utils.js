@@ -2,6 +2,8 @@
  * @param {string} value
  * @returns {string}
  */
+import { maxLimitDefault } from "./constants";
+
 export function ensureString (value) {
   return (value || '').toString();
 }
@@ -25,4 +27,18 @@ export function ensureNumber (value) {
  */
 export function getOnlyNumberIds (ids = []) {
   return ids.map( Number ).filter( v => !Number.isNaN( v ) );
+}
+
+/**
+ * Get limit by max
+ * @param {number|string} limit
+ * @param {number} maxLimit
+ * @returns {*}
+ */
+export function getLimitByMax (limit, maxLimit = maxLimitDefault) {
+  limit = ensureNumber( limit );
+
+  return limit > maxLimit
+    ? maxLimit
+    : limit;
 }

@@ -13,3 +13,5 @@ export const TIME_PERIODS = {
   month: HOUR_MS * 24 * 31,
   year: HOUR_MS * 24 * 365.26
 };
+
+export const maxLimitDefault = 20;
