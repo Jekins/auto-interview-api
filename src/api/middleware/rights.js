@@ -1,10 +1,8 @@
 import deap from 'deap';
 import Promise from "bluebird";
-import { Op } from "sequelize";
 
 import userGroups from "../../models/User/userGroups";
 import { ApiError } from "../../utils/error";
-import { ensureNumber, extractAllParams, wrapRequest } from "../../utils";
 import { getCompany } from "./company";
 
 /**

@@ -7,9 +7,9 @@ const groups = {
     mask: 0x100,
     name: 'User'
   },
-  locked: {
+  applicant: {
     mask: 0x10,
-    name: 'Locked'
+    name: 'Applicant'
   },
   all: {
     mask: 0x1000 | 0x100 | 0x10,

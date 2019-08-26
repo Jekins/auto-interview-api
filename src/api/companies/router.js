@@ -42,7 +42,6 @@ router.get( routeId, [
   rightsCompanyMiddleware(),
 ], methods.oneRequest );
 
-
 export {
   router
 };

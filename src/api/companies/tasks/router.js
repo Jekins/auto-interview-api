@@ -20,7 +20,6 @@ router.post( route, [
   rightsCompanyMiddleware()
 ], methods.createRequest );
 
-
 // GET
 router.get( route, [
   userMiddleware,

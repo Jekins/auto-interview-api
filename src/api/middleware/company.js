@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import * as models from "../../models";
 import { extractAllParams } from "../../utils";
 import { Op } from "sequelize";
 
