@@ -53,7 +53,7 @@ export async function getCompany (req) {
     where: {
       [ Op.or ]: {
         id: companyId,
-        key: companyId
+        slug: companyId
       }
     }
   } );

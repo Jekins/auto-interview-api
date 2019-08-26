@@ -40,9 +40,9 @@ const errorTypes = new Map( [
 
   // companies
   [ 'companies.not_found', 'Компания не найдена' ],
-  [ 'companies.key.required_field', 'Укажите id компании' ],
-  [ 'companies.key.only_numbers', 'В id компании должена присудствовать хотябы 1 буква' ],
-  [ 'companies.key.invalid_value', 'В id компании могут присутствовать только буквы, цифры и тере' ],
+  [ 'companies.slug.required_field', 'Укажите id компании' ],
+  [ 'companies.slug.only_numbers', 'В id компании должена присудствовать хотябы 1 буква' ],
+  [ 'companies.slug.invalid_value', 'В id компании могут присутствовать только буквы, цифры и тере' ],
   [ 'companies.name.required_field', 'Укажите название компании' ],
   [ 'companies.already_exist', 'Компания уже существует' ],
 ] );

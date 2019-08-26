@@ -21,36 +21,36 @@ export function createRequest (req, res, next) {
 export async function create (params) {
   let {
     name,
-    key,
+    slug,
     user,
   } = params;
 
-  if (!key) {
-    throw ApiError( 'companies.key.required_filed', 400 );
+  if (!slug) {
+    throw ApiError( 'companies.slug.required_field', 400 );
   }
 
   if (!name) {
-    throw ApiError( 'companies.name.required_filed', 400 );
+    throw ApiError( 'companies.name.required_field', 400 );
   }
 
   let company = await models.Company.findOne( {
-    where: { key }
+    where: { slug }
   } );
 
   if (company) {
     throw new ApiError( 'companies.already_exist', 401 )
   }
 
-  if ((/^\d+$/g).test( key )) {
-    throw new ApiError( 'companies.key.only_numbers', 400 )
+  if ((/^\d+$/g).test( slug )) {
+    throw new ApiError( 'companies.slug.only_numbers', 400 )
   }
 
-  if (!(/^[\w&.\-]+$/g).test( key )) {
-    throw new ApiError( 'companies.key.invalid_value', 400 )
+  if (!(/^[\w&.\-]+$/g).test( slug )) {
+    throw new ApiError( 'companies.slug.invalid_value', 400 )
   }
 
   company = await models.Company.create( {
-    key,
+    slug,
     name,
   } );
 

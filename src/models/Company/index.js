@@ -7,7 +7,7 @@ export const Company = sequelize.define( 'Company', {
     primaryKey: true,
     autoIncrement: true
   },
-  key: {
+  slug: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
@@ -20,8 +20,8 @@ export const Company = sequelize.define( 'Company', {
   paranoid: true,
   engine: 'INNODB',
   indexes: [ {
-    name: 'key_index',
+    name: 'slug_index',
     method: 'BTREE',
-    fields: [ 'key' ]
+    fields: [ 'slug' ]
   } ],
 } );
