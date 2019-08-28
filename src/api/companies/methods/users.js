@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
 import * as models from '../../../models';
-import { ApiError, wrapRequest } from "../../../utils";
+import { ApiError, successResponseWrapper, wrapRequest } from "../../../utils";
 import { groups } from "../../../utils/constants";
 
 /**
@@ -30,23 +30,19 @@ export async function users (params) {
 
   const userEmails = users.map( user => user.email );
 
-  if (!userEmails.length) {
-    return [];
-  }
-
   users = await models.User.findAll( {
     where: {
       email: {
         [ Op.in ]: userEmails
       }
     }
-  } );
+  } ); // TODO: если пользователя не найдет в базе, то надо регистрировать нового по этому емеилу
 
-  const addedUser = await company.addUsers( users, {
+  const addUsers = await company.addUsers( users, {
     through: {
       accessGroup: groups.user.mask // TODO: надо потом сделать возможность сразу задать каждому пользователю свою группу
     }
   } ); // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
 
-  return addedUser || [];
+  return successResponseWrapper( addUsers );
 }

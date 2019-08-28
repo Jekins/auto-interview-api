@@ -124,3 +124,19 @@ export function itemsResponseWrapper (items, total) {
     total
   };
 }
+
+/**
+ *
+ * @param {*} result
+ * @returns {{success: boolean}}
+ */
+export function successResponseWrapper (result) {
+  if (
+    !result
+    || ( Array.isArray( result ) && !result.length )
+  ) {
+    return { success: false };
+  }
+
+  return { success: true };
+}

@@ -1,7 +1,4 @@
-import { Op } from "sequelize";
-
-import * as models from '../../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
+import { ApiError, successResponseWrapper, wrapRequest } from "../../../../utils";
 import { one } from "./one";
 
 /**
@@ -24,12 +21,14 @@ export async function tasks (params) {
     interviewId,
     taskIds = []
   } = params;
+
   if (!Array.isArray( taskIds )) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
   const tasks = await company.getTasks( taskIds );
   const interview = await one( { interviewId, company } );
+  const setTasks = await interview.setTasks( tasks ); // FIXME: не перезаписывает и возвращает 2 вложенных массива
 
-  return interview.setTasks( tasks ); // TODO: не перезаписывает И возвращает 2 вложенных массива
+  return successResponseWrapper( setTasks );
 }
