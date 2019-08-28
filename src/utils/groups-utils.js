@@ -18,6 +18,10 @@ let utils = {
 
   removeGroup: (mask, group) => mask ^ utils.resolveGroup( group ).mask,
 
+  isEqualGroup: (group, targetGroup) => utils.resolveGroup( group ).mask === utils.resolveGroup( targetGroup ).mask,
+
+  isAdmin: (group) => utils.isEqualGroup( group, groups.admin ),
+
   groupByMask: mask => {
     if (mask === groups.all.mask) {
       return groups.all;

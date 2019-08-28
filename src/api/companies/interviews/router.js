@@ -7,6 +7,7 @@ import {
   userRightsMiddleware,
 } from "../../middleware";
 import { groups } from "../../../utils/constants";
+import { setTasks } from "./methods";
 
 const router = express.Router();
 const route = '/:companyId/interviews/';
@@ -23,7 +24,7 @@ router.post( `${ routeId }tasks`, [
   userMiddleware(),
   companyMiddleware(),
   userRightsMiddleware( [ groups.user ] ),
-], methods.tasksRequest );
+], methods.setTasksRequest );
 
 // GET
 router.get( route, [
@@ -37,6 +38,13 @@ router.get( routeId, [
   companyMiddleware(),
   userRightsMiddleware( [ groups.user ] ),
 ], methods.oneRequest );
+
+// DELETE
+router.delete( routeId, [
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] )
+], methods.removeRequest );
 
 export {
   router

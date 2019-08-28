@@ -1,5 +1,4 @@
 import { wrapRequest } from "../../../utils";
-import { getCompany } from "../../middleware";
 
 /**
  * @param {*} req
@@ -17,5 +16,5 @@ export function oneRequest (req, res, next) {
  * @return {Promise<any>|*}
  */
 export async function one (params, req) {
-  return await getCompany( req );
+  return params.company;
 }

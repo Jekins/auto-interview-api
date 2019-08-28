@@ -10,15 +10,15 @@ import { groups } from "../../../utils/constants";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function usersRequest (req, res, next) {
-  return wrapRequest( users, req, res, next );
+export function addUsersRequest (req, res, next) {
+  return wrapRequest( addUsers, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function users (params) {
+export async function addUsers (params) {
   let {
     company,
     users = [],
@@ -38,11 +38,11 @@ export async function users (params) {
     }
   } ); // TODO: если пользователя не найдет в базе, то надо регистрировать нового по этому емеилу
 
-  const addUsers = await company.addUsers( users, {
+  const add = await company.addUsers( users, {
     through: {
       accessGroup: groups.user.mask // TODO: надо потом сделать возможность сразу задать каждому пользователю свою группу
     }
   } ); // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
 
-  return successResponseWrapper( addUsers );
+  return successResponseWrapper( add );
 }

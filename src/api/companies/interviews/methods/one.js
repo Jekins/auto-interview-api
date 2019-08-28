@@ -19,12 +19,10 @@ export async function one (params) {
     interviewId,
     company
   } = params;
-
-  const id = ensureNumber( interviewId );
-  const interviews = await company.getInterviews( id );
+  const interviews = await company.getInterviews( interviewId );
 
   if (!interviews.length) {
-    throw ApiError( 'tasks.not_found', 404 );
+    throw new ApiError( 'interviews.not_found', 404 );
   }
 
   return interviews[ 0 ];

@@ -26,7 +26,7 @@ router.post( `${ routeId }users`, [
   userMiddleware(),
   companyMiddleware(),
   userRightsMiddleware()
-], methods.usersRequest );
+], methods.addUsersRequest );
 
 // GET
 router.get( route, [
@@ -38,6 +38,19 @@ router.get( routeId, [
   companyMiddleware(),
   userRightsMiddleware( [ groups.user ] )
 ], methods.oneRequest );
+
+// DELETE
+router.delete( routeId, [
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware()
+], methods.removeRequest );
+
+router.delete( `${ routeId }users`, [
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware()
+], methods.removeUsersRequest );
 
 export {
   router

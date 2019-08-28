@@ -28,12 +28,10 @@ export async function getCompany (req) {
     companyId
   } = extractAllParams( req );
 
-  companyId = ensureNumber( companyId );
-
   return models.Company.findOne( {
     where: {
       [ Op.or ]: {
-        id: companyId,
+        id: ensureNumber( companyId ),
         slug: companyId
       }
     }

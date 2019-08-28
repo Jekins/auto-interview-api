@@ -25,6 +25,10 @@ export function userRightsMiddleware (groupsArray = []) {
     } );
     let hasRights;
 
+    req.user.accessGroup = userRights
+      ? userRights.accessGroup
+      : 0;
+
     if (userRights && userRights.accessGroup) {
       hasRights = utils.hasRight( userRights.accessGroup, requestedMask );
     }

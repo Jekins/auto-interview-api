@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // production error handler
-// no stacktraces leaked to users
+// no stacktraces leaked to addUsers
 app.use( (err, req, res, next) => {
   res.status( err.status || 500 );
   res.end();

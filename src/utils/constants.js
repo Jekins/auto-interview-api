@@ -29,8 +29,12 @@ export const groups = {
     mask: 0x10,
     name: 'applicant'
   },
+  guest: {
+    mask: 0,
+    name: 'guest'
+  },
   all: {
-    mask: 0x1000 | 0x100 | 0x10,
+    mask: 0x1000 | 0x100 | 0x10 | 0,
     name: 'all'
   }
 };

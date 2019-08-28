@@ -1,5 +1,5 @@
 import { ApiError, successResponseWrapper, wrapRequest } from "../../../../utils";
-import { one } from "./one";
+import { one } from "./";
 
 /**
  * @param {*} req
@@ -7,15 +7,15 @@ import { one } from "./one";
  * @param {Function} next
  * @return {Promise<any>}
  */
-export function tasksRequest (req, res, next) {
-  return wrapRequest( tasks, req, res, next );
+export function setTasksRequest (req, res, next) {
+  return wrapRequest( setTasks, req, res, next );
 }
 
 /**
  * @param {*} params
  * @return {Promise<any>|*}
  */
-export async function tasks (params) {
+export async function setTasks (params) {
   let {
     company,
     interviewId,
@@ -28,7 +28,7 @@ export async function tasks (params) {
 
   const tasks = await company.getTasks( taskIds );
   const interview = await one( { interviewId, company } );
-  const setTasks = await interview.setTasks( tasks ); // FIXME: не перезаписывает и возвращает 2 вложенных массива
+  const set = await interview.setTasks( tasks ); // FIXME: не перезаписывает и возвращает 2 вложенных массива
 
-  return successResponseWrapper( setTasks );
+  return successResponseWrapper( set );
 }

@@ -9,7 +9,7 @@ import {
 import { groups } from "../../../utils";
 
 const router = express.Router();
-const route = '/:companyId/tasks/';
+const route = '/:companyId/setTasks/';
 const routeId = `${ route }:taskId/`;
 
 // POST
@@ -31,6 +31,13 @@ router.get( routeId, [
   companyMiddleware(),
   userRightsMiddleware( [ groups.user ] ),
 ], methods.oneRequest );
+
+// DELETE
+router.delete( routeId, [
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] )
+], methods.removeRequest );
 
 export {
   router

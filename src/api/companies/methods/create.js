@@ -24,7 +24,7 @@ export async function create (params) {
   } = params;
 
   if (!slug) {
-    throw ApiError( 'companies.slug.required_field', 400 );
+    throw new ApiError( 'companies.slug.required_field', 400 );
   }
 
   if ((/^\d+$/g).test( slug )) {
@@ -36,7 +36,7 @@ export async function create (params) {
   }
 
   if (!name) {
-    throw ApiError( 'companies.name.required_field', 400 );
+    throw new ApiError( 'companies.name.required_field', 400 );
   }
 
   const hasCompany = await models.Company.findOne( {

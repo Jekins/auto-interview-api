@@ -19,12 +19,10 @@ export async function one (params) {
     taskId: id,
     company
   } = params;
-  const tasks = await company.getTasks( {
-    where: { id }
-  } );
+  const tasks = await company.getTasks( id );
 
   if (!tasks.length) {
-    throw ApiError( 'tasks.not_found', 404 );
+    throw new ApiError( 'setTasks.not_found', 404 );
   }
 
   return tasks[ 0 ];
