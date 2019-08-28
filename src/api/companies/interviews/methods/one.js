@@ -21,10 +21,7 @@ export async function one (params) {
   } = params;
 
   const id = ensureNumber( interviewId );
-
-  const interviews = await company.getInterviews( {
-    where: { id }
-  } );
+  const interviews = await company.getInterviews( id );
 
   if (!interviews.length) {
     throw ApiError( 'tasks.not_found', 404 );

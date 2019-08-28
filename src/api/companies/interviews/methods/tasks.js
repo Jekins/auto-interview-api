@@ -29,11 +29,7 @@ export async function tasks (params) {
   }
 
   const tasks = await company.getTasks( taskIds );
-  taskIds = tasks.map( task => task.id );
-  console.log( '___ taskIds:', taskIds );
-
   const interview = await one( { interviewId, company } );
-  const settasks = await interview.setTasks( taskIds ); // TODO: не удаляются при пустом массиве?!
 
-  return  settasks || [];
+  return interview.setTasks( tasks ); // TODO: не перезаписывает И возвращает 2 вложенных массива
 }

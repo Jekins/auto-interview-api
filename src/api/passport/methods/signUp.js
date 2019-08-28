@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 import * as models from '../../../models';
 import { ApiError, ensureString, wrapRequest } from "../../../utils";
 
@@ -25,7 +23,6 @@ export async function signUp (params) {
     password,
   } = params;
   const email = login; // TODO: сделать проверку на валидный email
-
   let user = await models.User.findOne( {
     where: {
       login
@@ -39,13 +36,11 @@ export async function signUp (params) {
   firstName = ensureString( firstName );
   lastName = ensureString( lastName );
 
-  user = await models.User.create( {
+  return models.User.create( {
     login,
     email,
     firstName,
     lastName,
     password
   } );
-
-  return user;
 }

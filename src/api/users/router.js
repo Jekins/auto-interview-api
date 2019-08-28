@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as methods from './methods';
-import { rightsGroupsMiddleware, userMiddleware, userRightsMiddleware } from "../middleware";
+import { userMiddleware } from "../middleware";
 
 const router = express.Router();
 const route = '/';
@@ -9,7 +9,6 @@ const route = '/';
 // POST
 router.get( route, [
   userMiddleware(),
-  userRightsMiddleware()
 ], methods.meRequest );
 
 export {

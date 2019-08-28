@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 import * as models from '../../../models';
 import { ApiError, authExpires, computePasswordHash, generateTokenForUser, wrapRequest } from "../../../utils";
 import { config } from "../../../config/config";
@@ -44,7 +42,6 @@ export async function signIn (params, req, res) {
     expires: authExpires,
     httpOnly: true
   } );
-
   req.session.userId = user.id;
 
   await user.update( {

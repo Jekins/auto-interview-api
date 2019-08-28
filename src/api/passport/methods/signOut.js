@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 import { authExpires, wrapRequest } from "../../../utils";
 import { config } from "../../../config/config";
 
@@ -21,9 +19,7 @@ export function signOutRequest (req, res, next) {
  * @returns {Promise<boolean>}
  */
 export async function signOut (params, req, res) {
-  const AUTH_COOKIE_NAME = config.auth.cookieName;
-
-  res.cookie( AUTH_COOKIE_NAME, '', {
+  res.cookie( config.auth.cookieName, '', {
     expires: authExpires,
     httpOnly: true
   } );
