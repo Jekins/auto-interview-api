@@ -4,9 +4,9 @@ import * as methods from './methods';
 import {
   userMiddleware,
   companyMiddleware,
-  rightsCompanyMiddleware,
-  rightsGroupsMiddleware,
+  userRightsMiddleware,
 } from "../../middleware";
+import { groups } from "../../../utils/constants";
 
 const router = express.Router();
 const route = '/:companyId/interviews/';
@@ -14,32 +14,28 @@ const routeId = `${ route }:interviewId/`;
 
 // POST
 router.post( route, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware()
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] ),
 ], methods.createRequest );
 
 router.post( `${ routeId }tasks`, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware()
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] ),
 ], methods.tasksRequest );
 
 // GET
 router.get( route, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] ),
 ], methods.allRequest );
 
 router.get( routeId, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] ),
 ], methods.oneRequest );
 
 export {

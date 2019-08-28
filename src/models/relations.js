@@ -4,7 +4,7 @@ import * as models from '../models';
 import { sequelize } from "./instance";
 
 const logger = debug( 'Sequelize' );
-const { User, Company, Interview, Task, AuthToken } = models;
+const { User, Company, Interview, Task, AuthToken, UserRight } = models;
 
 export function makeRelations () {
   /**
@@ -13,8 +13,8 @@ export function makeRelations () {
   User.hasMany( AuthToken, { foreignKey: 'userId', targetKey: 'id' } );
   AuthToken.belongsTo( User, { foreignKey: 'userId', targetKey: 'id' } );
 
-  User.belongsToMany( Company, { through: 'UsersToCompanies', foreignKey: 'userId', timestamps: false } );
-  Company.belongsToMany( User, { through: 'UsersToCompanies', foreignKey: 'companyId', timestamps: false } );
+  User.belongsToMany( Company, { through: UserRight, foreignKey: 'userId', timestamps: false } );
+  Company.belongsToMany( User, { through: UserRight, foreignKey: 'companyId', timestamps: false } );
 
   Company.hasMany( Interview, { foreignKey: 'companyId', targetKey: 'id' } );
   Interview.belongsTo( Company, { foreignKey: 'companyId', targetKey: 'id' } );

@@ -15,3 +15,22 @@ export const TIME_PERIODS = {
 };
 
 export const maxLimitDefault = 20;
+
+export const groups = {
+  admin: {
+    mask: 0x1000,
+    name: 'admin'
+  },
+  user: {
+    mask: 0x100,
+    name: 'user'
+  },
+  applicant: {
+    mask: 0x10,
+    name: 'applicant'
+  },
+  all: {
+    mask: 0x1000 | 0x100 | 0x10,
+    name: 'all'
+  }
+};

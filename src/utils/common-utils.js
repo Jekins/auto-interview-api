@@ -38,6 +38,7 @@ export function getOnlyNumberIds (ids = []) {
 export function getLimitByMax (limit, maxLimit = maxLimitDefault) {
   limit = ensureNumber( limit );
 
+  // TODO: переписать это адекватнее
   return limit ?
       limit > maxLimit
         ? maxLimit

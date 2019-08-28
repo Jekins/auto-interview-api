@@ -1,7 +1,4 @@
-import Promise from 'bluebird';
-
-import * as models from '../../../../models';
-import { ensureNumber, getLimitByMax, wrapRequest } from "../../../../utils";
+import { ensureNumber, getLimitByMax, itemsResponseWrapper, wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -27,8 +24,11 @@ export async function all (params) {
   limit = getLimitByMax( limit );
   offset = ensureNumber( offset );
 
-  return await company.getTasks( {
-    limit,
-    offset
+  const items = await company.getTasks( {
+    offset,
+    limit
   } );
+  const total = await company.countTasks();
+
+  return itemsResponseWrapper( items, total );
 }

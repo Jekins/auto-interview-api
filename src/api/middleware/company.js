@@ -1,36 +1,21 @@
 import Promise from 'bluebird';
-import { extractAllParams } from "../../utils";
+import { ApiError, ensureNumber, extractAllParams } from "../../utils";
 import { Op } from "sequelize";
+import * as models from '../../models';
+import groupsUtils from "../../utils/groups-utils";
 
-/**
- * @param {*} req
- * @param {*} res
- * @param {Function} next
- * @return {Promise<*>}
- */
-export async function companyMiddleware (req, res, next) {
-  return Promise.resolve().then( () => {
-    return retrieveCompany( req, res, next );
-  } ).catch( next );
-}
+export function companyMiddleware () {
+  return async (req, res, next) => {
+    const company = await getCompany( req );
 
-/**
- *
- * @param {*} req
- * @param {*} res
- * @param {Function} next
- * @returns {Promise<void>}
- */
-export async function retrieveCompany (req, res, next) {
-  const company = await getCompany( req );
+    if (!company) {
+      return next( new ApiError( 'companies.not_found', 404 ) );
+    }
 
-  if (!company) {
+    req.company = company;
+
     next();
-  }
-
-  req.company = company;
-
-  next();
+  };
 }
 
 /**
@@ -39,16 +24,13 @@ export async function retrieveCompany (req, res, next) {
  * @returns {Promise<null|*>}
  */
 export async function getCompany (req) {
-  const {
-    companyId,
-    user
+  let {
+    companyId
   } = extractAllParams( req );
 
-  if (!companyId || !user) {
-    return null;
-  }
+  companyId = ensureNumber( companyId );
 
-  const companies = await user.getCompanies( {
+  return models.Company.findOne( {
     where: {
       [ Op.or ]: {
         id: companyId,
@@ -56,10 +38,4 @@ export async function getCompany (req) {
       }
     }
   } );
-
-  if (!companies.length) {
-    return null;
-  }
-
-  return companies[ 0 ];
 }

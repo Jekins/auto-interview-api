@@ -1,6 +1,4 @@
-import Promise from 'bluebird';
-
-import { ApiError, wrapRequest } from "../../../utils";
+import { wrapRequest } from "../../../utils";
 import { getCompany } from "../../middleware";
 
 /**

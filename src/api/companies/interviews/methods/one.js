@@ -1,7 +1,4 @@
-import Promise from 'bluebird';
-
-import * as models from '../../../../models';
-import { ApiError, wrapRequest } from "../../../../utils";
+import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
 
 /**
  * @param {*} req
@@ -19,9 +16,12 @@ export function oneRequest (req, res, next) {
  */
 export async function one (params) {
   const {
-    interviewId: id,
+    interviewId,
     company
   } = params;
+
+  const id = ensureNumber( interviewId );
+
   const interviews = await company.getInterviews( {
     where: { id }
   } );

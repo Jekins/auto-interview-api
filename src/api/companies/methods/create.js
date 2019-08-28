@@ -1,7 +1,6 @@
-import Promise from 'bluebird';
-
 import * as models from '../../../models';
 import { ApiError, wrapRequest } from "../../../utils";
+import { groups } from "../../../utils/constants";
 
 /**
  * @param {*} req
@@ -21,7 +20,7 @@ export async function create (params) {
   let {
     name,
     slug,
-    user,
+    user
   } = params;
 
   if (!slug) {
@@ -40,18 +39,20 @@ export async function create (params) {
     throw ApiError( 'companies.name.required_field', 400 );
   }
 
-  let company = await models.Company.findOne( {
+  const hasCompany = await models.Company.findOne( {
     where: { slug }
   } );
 
-  if (company) {
-    throw new ApiError( 'companies.already_exist', 401 )
+  if (hasCompany) {
+    throw new ApiError( 'companies.already_exist', 401 );
   }
 
-  company = await user.createCompany( {
+  return user.createCompany( {
     slug,
     name,
+  }, {
+    through: {
+      accessGroup: groups.admin.mask
+    }
   } );
-
-  return company;
 }

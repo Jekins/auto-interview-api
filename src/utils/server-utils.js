@@ -108,3 +108,19 @@ export function computePasswordHash (value) {
 export function resolveProtocol () {
   return 'http' + (config.env === 'production' ? 's' : '');
 }
+
+/**
+ *
+ * @param {array} items
+ * @param {number} total
+ * @returns {{total: *, items: *}}
+ */
+export function itemsResponseWrapper (items, total) {
+  items = items || [];
+  total = total || 0;
+
+  return {
+    items,
+    total
+  };
+}

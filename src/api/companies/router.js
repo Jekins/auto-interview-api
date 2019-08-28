@@ -4,11 +4,11 @@ import * as methods from './methods';
 import {
   userMiddleware,
   companyMiddleware,
-  rightsCompanyMiddleware,
-  rightsGroupsMiddleware,
+  userRightsMiddleware,
 } from "../middleware";
 import { router as interviewRouter } from "./interviews";
 import { router as taskRouter } from "./tasks";
+import { groups } from "../../utils";
 
 const router = express.Router();
 const route = '/';
@@ -19,27 +19,24 @@ router.use( route, taskRouter );
 
 // POST
 router.post( route, [
-  userMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] )
+  userMiddleware()
 ], methods.createRequest );
 
 router.post( `${ routeId }users`, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware()
 ], methods.usersRequest );
 
 // GET
 router.get( route, [
-  userMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
+  userMiddleware()
 ], methods.allRequest );
 
 router.get( routeId, [
-  userMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] )
 ], methods.oneRequest );
 
 export {

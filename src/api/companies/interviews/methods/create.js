@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 import { ensureNumber, wrapRequest } from "../../../../utils";
 
 /**
@@ -34,7 +32,7 @@ export async function create (params) {
   canEditAnswer = Boolean( canEditAnswer );
   canAddComment = Boolean( canAddComment );
 
-  return await company.createInterview( {
+  return company.createInterview( {
     titleStart,
     descriptionStart,
     titleFinish,

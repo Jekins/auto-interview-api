@@ -9,6 +9,7 @@ const errorTypes = new Map( [
   [ 'too_short_text', 'Слишком маленькая длина текста' ],
   [ 'invalid_value', 'Недопустимое значение' ],
   [ 'required_field', 'Пропущено обязательное поле' ],
+  [ 'group_not_found', 'Группа не найдена' ],
 
   // payment
   [ 'payment.auth_needed', 'Обновите страницу и попробуйте еще раз' ],

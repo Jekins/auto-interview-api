@@ -1,7 +1,8 @@
 import { Op } from 'sequelize';
 
 import * as models from '../../../models';
-import { ApiError, ensureNumber, wrapRequest } from "../../../utils";
+import { ApiError, wrapRequest } from "../../../utils";
+import { groups } from "../../../utils/constants";
 
 /**
  * @param {*} req
@@ -20,18 +21,20 @@ export function usersRequest (req, res, next) {
 export async function users (params) {
   let {
     company,
-    userEmails = [],
+    users = [],
   } = params;
 
-  if (typeof userEmails === 'string') {
-    userEmails = userEmails.split( ',' );
-  }
-
-  if (!Array.isArray( userEmails )) {
+  if (!Array.isArray( users )) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
-  let users = await models.User.findAll( {
+  const userEmails = users.map( user => user.email );
+
+  if (!userEmails.length) {
+    return [];
+  }
+
+  users = await models.User.findAll( {
     where: {
       email: {
         [ Op.in ]: userEmails
@@ -39,9 +42,11 @@ export async function users (params) {
     }
   } );
 
-  const userIds = users.map( user => user.id );
+  const addedUser = await company.addUsers( users, {
+    through: {
+      accessGroup: groups.user.mask // TODO: надо потом сделать возможность сразу задать каждому пользователю свою группу
+    }
+  } ); // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
 
-  await company.addUsers( userIds ); // TODO: на этом месте надо как-то оповещать пользователя, что его добавили в компанию
-
-  return company.getUsers();
+  return addedUser || [];
 }

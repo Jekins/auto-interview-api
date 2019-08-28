@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 
 import * as models from '../../../../models';
 import { ApiError, ensureNumber, wrapRequest } from "../../../../utils";
+import { one } from "./one";
 
 /**
  * @param {*} req
@@ -19,36 +20,20 @@ export function tasksRequest (req, res, next) {
  */
 export async function tasks (params) {
   let {
+    company,
     interviewId,
     taskIds = []
   } = params;
-
-  if (typeof taskIds === 'string') {
-    taskIds = taskIds.split( ',' );
-  }
-
   if (!Array.isArray( taskIds )) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
-  const tasks = await models.Task.findAll( {
-    where: {
-      id: {
-        [ Op.in ]: taskIds
-      }
-    }
-  } );
+  const tasks = await company.getTasks( taskIds );
+  taskIds = tasks.map( task => task.id );
+  console.log( '___ taskIds:', taskIds );
 
-  taskIds = tasks.map( user => user.id );
-  interviewId = ensureNumber( interviewId );
+  const interview = await one( { interviewId, company } );
+  const settasks = await interview.setTasks( taskIds ); // TODO: не удаляются при пустом массиве?!
 
-  const interview = await models.Interview.findByPk( interviewId );
-
-  if (!interview) {
-    throw new ApiError( 'interviews.not_found', 404 );
-  }
-
-  await interview.addTasks( taskIds );
-
-  return interview.getTasks();
+  return  settasks || [];
 }

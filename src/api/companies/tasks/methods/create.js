@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 import { wrapRequest } from "../../../../utils";
 
 /**

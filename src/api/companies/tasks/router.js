@@ -4,9 +4,9 @@ import * as methods from './methods';
 import {
   userMiddleware,
   companyMiddleware,
-  rightsCompanyMiddleware,
-  rightsGroupsMiddleware,
+  userRightsMiddleware,
 } from "../../middleware";
+import { groups } from "../../../utils";
 
 const router = express.Router();
 const route = '/:companyId/tasks/';
@@ -14,25 +14,22 @@ const routeId = `${ route }:taskId/`;
 
 // POST
 router.post( route, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware()
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] )
 ], methods.createRequest );
 
 // GET
 router.get( route, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] ),
 ], methods.allRequest );
 
 router.get( routeId, [
-  userMiddleware,
-  companyMiddleware,
-  rightsGroupsMiddleware( [ 'user' ] ),
-  rightsCompanyMiddleware(),
+  userMiddleware(),
+  companyMiddleware(),
+  userRightsMiddleware( [ groups.user ] ),
 ], methods.oneRequest );
 
 export {
