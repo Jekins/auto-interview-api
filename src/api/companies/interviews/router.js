@@ -7,7 +7,6 @@ import {
   userRightsMiddleware,
 } from "../../middleware";
 import { groups } from "../../../utils/constants";
-import { setTasks } from "./methods";
 
 const router = express.Router();
 const route = '/:companyId/interviews/';

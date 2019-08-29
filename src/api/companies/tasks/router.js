@@ -9,7 +9,7 @@ import {
 import { groups } from "../../../utils";
 
 const router = express.Router();
-const route = '/:companyId/setTasks/';
+const route = '/:companyId/tasks/';
 const routeId = `${ route }:taskId/`;
 
 // POST

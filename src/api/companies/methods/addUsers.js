@@ -29,6 +29,7 @@ export async function addUsers (params) {
   }
 
   const userEmails = users.map( user => user.email );
+  const userGroups = users.map( user => user.group );
 
   users = await models.User.findAll( {
     where: {

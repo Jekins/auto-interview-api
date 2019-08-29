@@ -1,5 +1,6 @@
 import { ApiError, successResponseWrapper, wrapRequest } from "../../../../utils";
 import { one } from "./";
+import { Op } from "sequelize";
 
 /**
  * @param {*} req
@@ -26,9 +27,15 @@ export async function setTasks (params) {
     throw new ApiError( 'invalid_value', 400 );
   }
 
-  const tasks = await company.getTasks( taskIds );
+  const tasks = await company.getTasks( {
+    where: {
+      id: {
+        [ Op.in ]: taskIds
+      }
+    }
+  } );
   const interview = await one( { interviewId, company } );
-  const set = await interview.setTasks( tasks ); // FIXME: не перезаписывает и возвращает 2 вложенных массива
+  const set = await interview.setTasks( tasks );
 
   return successResponseWrapper( set );
 }
