@@ -42,7 +42,7 @@
     "request-promise": "^4.2.4",
     "sequelize": "^5.15.1",
     "tough-cookie": "^3.0.1",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
